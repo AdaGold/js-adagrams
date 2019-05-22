@@ -79,7 +79,7 @@ describe('Adagrams', () => {
         'XXXXXXX': 64,
         'XXXXXXXX': 72,
         'XXXXXXXXX': 80,
-        'XXXXXXXXXX': 88, 
+        'XXXXXXXXXX': 88,
       });
     });
   });
@@ -139,5 +139,3 @@ describe('Adagrams', () => {
     });
   });
 });
-
-
