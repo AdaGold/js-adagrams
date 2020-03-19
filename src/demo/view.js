@@ -42,6 +42,7 @@ const View = {
       });
 
     game.exec('playerTurn');
+    setTimeout(() => game.exec('exit'), model.config.time * 1000);
 
     // Player's turn is over when the mode exits
     game.on('mode_exit', () => {
