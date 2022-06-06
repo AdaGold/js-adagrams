@@ -14,11 +14,16 @@ class SwitchScreenAction {
 }
 
 function onHelpScreen(state) {
-  return state.currentScreen === ScreenId.HOW_TO
+  return state.currentScreen === ScreenId.HOW_TO;
+}
+
+function onSetupScreen(state) {
+  return state.currentScreen === ScreenId.SETUP;
 }
 
 module.exports = {
   SwitchScreenAction,
   ScreenId,
-  onHelpScreen
+  onHelpScreen,
+  onSetupScreen
 };

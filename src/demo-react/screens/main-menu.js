@@ -6,7 +6,7 @@ const { Box, useApp } = require('ink');
 const importJsx = require('import-jsx');
 const { Menu, MenuEntry } = importJsx('../components/menu');
 
-const MainMenu = ({ log, onHelpSelected }) => {
+const MainMenu = ({ log, onHelpSelected, onStartSelected }) => {
   const { exit } = useApp();
   const mainMenu = [
     MenuEntry('Start New Game', 'start'),
@@ -21,6 +21,9 @@ const MainMenu = ({ log, onHelpSelected }) => {
     }
     if (selectionId === 'help') {
       onHelpSelected();
+    }
+    if (selectionId === 'start') {
+      onStartSelected();
     }
   }
 
@@ -39,7 +42,8 @@ const MainMenu = ({ log, onHelpSelected }) => {
 
 MainMenu.propTypes = {
   log: PropTypes.func,
-  onHelpSelected: PropTypes.func.isRequired
+  onHelpSelected: PropTypes.func.isRequired,
+  onStartSelected: PropTypes.func.isRequired
 }
 
 module.exports = MainMenu;

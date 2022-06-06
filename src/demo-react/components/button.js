@@ -4,6 +4,7 @@ const PropTypes = require('prop-types');
 const { Box, Text } = require('ink');
 
 function Button(props) {
+  // TODO: Try using `inverse` for selected, instead.
   const bgColor = props.isSelected ? 'white' : '';
   const color = props.isSelected ? 'black' : '';
   return (

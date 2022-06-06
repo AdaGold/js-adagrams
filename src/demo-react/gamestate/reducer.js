@@ -6,6 +6,7 @@ const { ScreenId } = require('./screens.js');
 const initialState = {
   currentScreen: ScreenId.MAIN_MENU,
   gameTimer: 15, // seconds
+  secondsPerTurn: 15,
   desiredPlayers: 2,
   roundsPerGame: 3,
   currentPlayer: null, // No players initially.
@@ -16,10 +17,13 @@ const initialState = {
 function gameStateReducer(state, action) {
   switch (action.type) {
     case Actions.SWITCH_SCREEN:
-      return {
-        ...state,
-        currentScreen: action.payload
-      };
+      return { ...state, currentScreen: action.payload };
+    case Actions.SET_NUMBER_ROUNDS:
+      return { ...state, roundsPerGame: action.payload };
+    case Actions.SET_DESIRED_PLAYERS:
+      return { ...state, desiredPlayers: action.payload };
+    case Actions.SET_TURN_SECONDS:
+      return { ...state, secondsPerTurn: action.payload };
     default:
       return { ...state };
   }
