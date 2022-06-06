@@ -26,7 +26,7 @@ const App = () => {
 
   return (
     <>
-      <MainMenu log={ log } onHelpSelected={ () => dispatch(new SwitchScreenAction(ScreenId.HELP)) } />
+      <MainMenu log={ log } onHelpSelected={ () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO)) } />
       <Text color="red">{ getLastError(state) }</Text>
     </>
   );
