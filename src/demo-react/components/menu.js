@@ -17,7 +17,7 @@ MenuEntry.propTypes = PropTypes.shape({
   selecitonId: PropTypes.string
 });
 
-const Menu = ({ items, onItemSelected }) => {
+const Menu = ({ items, onItemSelected, width }) => {
   const menu = items;
   const [selectedIdx, setSelectedIdx] = useState(0);
 
@@ -40,6 +40,7 @@ const Menu = ({ items, onItemSelected }) => {
       flexDirection='row'
       alignItems='center'
       justifyContent='center'
+      width={ width }
     >
       {
         menu.map((menuEntry, idx) =>
@@ -57,7 +58,8 @@ const Menu = ({ items, onItemSelected }) => {
 
 Menu.propTypes = {
   onItemSelected: PropTypes.func.isRequired,
-  items: PropTypes.arrayOf(MenuEntry.propTypes).isRequired
+  items: PropTypes.arrayOf(MenuEntry.propTypes).isRequired,
+  width: PropTypes.string
 };
 
 module.exports = {
