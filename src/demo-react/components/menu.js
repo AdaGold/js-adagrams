@@ -40,8 +40,6 @@ const Menu = ({ items, onItemSelected }) => {
       flexDirection='row'
       alignItems='center'
       justifyContent='center'
-      borderStyle='single'
-      paddingY='2'
     >
       {
         menu.map((menuEntry, idx) =>
