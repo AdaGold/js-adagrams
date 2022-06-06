@@ -3,38 +3,33 @@ const { useState } = require('react');
 
 const { Text } = require('ink');
 
+const { useGameReducer } = require('./gamestate/reducer');
+const { SetErrorAction, getLastError } = require('./gamestate/errors');
+const { SwitchScreenAction, ScreenId, onHelpScreen } = require('./gamestate/screens');
+
 const importJsx = require('import-jsx');
 const HowTo = importJsx('./screens/how-to');
 const MainMenu = importJsx('./screens/main-menu');
 
 const App = () => {
-  const [message, setMessage] = useState();
-  const [screen, setScreen] = useState('mainmenu');
+  const [state, dispatch] = useGameReducer();
 
   const log = (msg) => {
-    setMessage(msg);
+    dispatch(new SetErrorAction(msg));
   };
 
-  const showHelp = () => {
-    setScreen('help');
-  }
-
-  if (screen === 'help') {
+  if (onHelpScreen(state)) {
     return (
-      <>
-        <HowTo />
-      </>
+      <HowTo showMainMenu={ () => dispatch(new SwitchScreenAction(ScreenId.MAIN_MENU)) } />
     );
   }
 
   return (
     <>
-      <MainMenu log={ log } onHelpSelected={ showHelp } />
-      <Text>{ message }</Text>
+      <MainMenu log={ log } onHelpSelected={ () => dispatch(new SwitchScreenAction(ScreenId.HELP)) } />
+      <Text color="red">{ getLastError(state) }</Text>
     </>
   );
 };
-
-App.propTypes = {};
 
 module.exports = App;
