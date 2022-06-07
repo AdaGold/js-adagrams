@@ -7,14 +7,16 @@ const { Box, useInput } = require('ink');
 const importJsx = require('import-jsx');
 const Button = importJsx('./button');
 
-const MenuEntry = (title, selectionId) => ({
+const MenuEntry = (title, selectionId, color) => ({
+  color,
   title,
   selectionId
 });
 
 MenuEntry.propTypes = PropTypes.shape({
   title: PropTypes.string,
-  selecitonId: PropTypes.string
+  selecitonId: PropTypes.string,
+  color: PropTypes.string
 });
 
 const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
@@ -50,6 +52,7 @@ const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
           <Button
             key={ menuEntry.selectionId }
             isSelected={ isActive && idx === selectedIdx }
+            color={ menuEntry.color }
           >
             { menuEntry.title }
           </Button>

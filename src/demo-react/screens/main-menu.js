@@ -11,7 +11,7 @@ const MainMenu = ({ log, onHelpSelected, onStartSelected }) => {
   const mainMenu = [
     MenuEntry('Start New Game', 'start'),
     MenuEntry('How to Play', 'help'),
-    MenuEntry('Quit', 'quit')
+    MenuEntry('Quit', 'quit', 'red')
   ];
 
   const handleSelection = (selectionId) => {
