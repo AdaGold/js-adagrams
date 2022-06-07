@@ -50,4 +50,9 @@ function EnterPlayers({ state, dispatch }) {
   );
 }
 
+EnterPlayers.propTypes = {
+  state: PropTypes.object.isRequired,
+  dispatch: PropTypes.func.isRequired
+};
+
 module.exports = EnterPlayers;
