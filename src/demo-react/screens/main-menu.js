@@ -16,14 +16,10 @@ const MainMenu = ({ log, onHelpSelected, onStartSelected }) => {
 
   const handleSelection = (selectionId) => {
     log(`MainMenu: Received '${selectionId}'.`);
-    if (selectionId === 'quit') {
-      exit();
-    }
-    if (selectionId === 'help') {
-      onHelpSelected();
-    }
-    if (selectionId === 'start') {
-      onStartSelected();
+    switch(selectionId) {
+      case 'quit': exit(); break;
+      case 'help': onHelpSelected(); break;
+      case 'start': onStartSelected(); break;
     }
   }
 
