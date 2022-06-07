@@ -17,6 +17,9 @@ const MainMenu = importJsx('./screens/main-menu');
 const SetupGame = importJsx('./screens/game-setup');
 
 const App = () => {
+  // TODO: Instead of sending state & dispatch to all the screens, switch to
+  // the context API.
+  // See: https://hswolff.com/blog/how-to-usecontext-with-usereducer/#performance-concerns
   const [state, dispatch] = useGameReducer();
 
   if (onHelpScreen(state)) {
