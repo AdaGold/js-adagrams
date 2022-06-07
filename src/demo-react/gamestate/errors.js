@@ -11,7 +11,7 @@ function getLastError(state) {
   return state.lastError
 }
 
-function errorInterceptor(wrappedReducer) {
+function errorMiddleware(wrappedReducer) {
   // Intercept any error actions and forward the rest to the wrapped reducer.
   return (state, action) => {
     switch(action.type) {
@@ -34,5 +34,5 @@ function errorInterceptor(wrappedReducer) {
 module.exports = {
   SetErrorAction,
   getLastError,
-  errorInterceptor
+  errorMiddleware
 };
