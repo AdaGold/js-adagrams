@@ -10,11 +10,29 @@ function validateOptionsInput(wrappedReducer) {
       case Actions.SET_DESIRED_PLAYERS: {
         const numPlayers = action.payload;
         if (numPlayers < 1 || numPlayers > 4) {
-          const numPlayersError = new SetErrorAction(
+          return wrappedReducer(state, new SetErrorAction(
             `${numPlayers} is not a valid number of players.`
-          );
-          return wrappedReducer(state, numPlayersError);
+          ));
         }
+        break;
+      }
+      case Actions.SET_NUMBER_ROUNDS: {
+        const numRounds = action.payload;
+        if (numRounds < 1 || numRounds > 5) {
+          return wrappedReducer(state, new SetErrorAction(
+            `${numRounds} is not a valid number of rounds.`
+          ));
+        }
+        break;
+      }
+      case Actions.SET_TURN_SECONDS: {
+        const seconds = action.payload;
+        if (seconds < 10 || seconds > 60) {
+          return wrappedReducer(state, new SetErrorAction(
+            `${seconds} is not a valid number of seconds for each player's turn.`
+          ));
+        }
+        break;
       }
     }
 
