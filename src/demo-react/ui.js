@@ -16,6 +16,7 @@ const HowTo = importJsx('./screens/how-to');
 const MainMenu = importJsx('./screens/main-menu');
 const SetupGame = importJsx('./screens/game-setup');
 const EnterPlayers = importJsx('./screens/enter-players');
+const Game = importJsx('./screens/game');
 
 const App = () => {
   // TODO: Instead of sending state & dispatch to all the screens, switch to
@@ -41,10 +42,7 @@ const App = () => {
 
   if (state.currentScreen === ScreenId.GAME) {
     return (
-      <Box flexDirection='column'>
-        <Text color='yellowBright'>TODO: Add game screen!</Text>
-        { state.players.map((player, idx) => <Text key={player.name}>{idx+1}: {player.name}</Text>)}
-      </Box>
+      <Game state={ state } dispatch={ dispatch }/>
     );
   }
 
