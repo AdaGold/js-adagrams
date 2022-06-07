@@ -1,11 +1,13 @@
 const React = require('react');
-const PropTypes = require('prop-types');
 
 const { Box, Text } = require('ink');
 
 const importJsx = require('import-jsx');
+const { useGameStateContext } = importJsx('../components/gamestate-context');
 
-function Game({ state, dispatch }) {
+function Game() {
+  const { state, dispatch } = useGameStateContext();
+
   return (
     <Box flexDirection='column'>
       <Text color='yellowBright'>TODO: Add game screen!</Text>
@@ -13,10 +15,5 @@ function Game({ state, dispatch }) {
     </Box>
   )
 }
-
-Game.propTypes = {
-  state: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
 
 module.exports = Game;

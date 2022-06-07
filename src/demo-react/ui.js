@@ -2,8 +2,7 @@ const React = require('react');
 
 const { Box, Text } = require('ink');
 
-const { useGameReducer } = require('./gamestate/reducer');
-const { SetErrorAction, getLastError } = require('./gamestate/errors');
+const { SetErrorAction } = require('./gamestate/errors');
 const {
   SwitchScreenAction,
   ScreenId,
@@ -17,48 +16,52 @@ const MainMenu = importJsx('./screens/main-menu');
 const SetupGame = importJsx('./screens/game-setup');
 const EnterPlayers = importJsx('./screens/enter-players');
 const Game = importJsx('./screens/game');
+const { GameStateStore, useGameStateContext } = importJsx('./components/gamestate-context');
+const ErrorViewer = importJsx('./components/error-viewer');
 
-const App = () => {
-  // TODO: Instead of sending state & dispatch to all the screens, switch to
-  // the context API.
-  // See: https://hswolff.com/blog/how-to-usecontext-with-usereducer/#performance-concerns
-  const [state, dispatch] = useGameReducer();
+function ScreenDisplayer() {
+  const { state, dispatch } = useGameStateContext();
+
+  const showHowTo = () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO));
+  const showSetupGame = () => dispatch(new SwitchScreenAction(ScreenId.SETUP));
+  const log = (msg) => dispatch(new SetErrorAction(msg));
+
+  let screen = (
+    <MainMenu
+      log={ log }
+      onHelpSelected={ showHowTo }
+      onStartSelected={ showSetupGame }
+    />
+  );
 
   if (onHelpScreen(state)) {
     const showMainMenu = () => dispatch(
       new SwitchScreenAction(ScreenId.MAIN_MENU)
     );
 
-    return <HowTo showMainMenu={ showMainMenu } />;
+    screen = <HowTo showMainMenu={ showMainMenu } />;
+  } else if (onSetupScreen(state)) {
+    screen = <SetupGame />;
+  } else if (state.currentScreen === ScreenId.ENTER_PLAYERS) {
+    screen = <EnterPlayers />;
+  } else if (state.currentScreen === ScreenId.GAME) {
+    screen = <Game />;
   }
 
-  if (onSetupScreen(state)) {
-    return <SetupGame state={ state } dispatch={ dispatch } />;
-  }
-
-  if (state.currentScreen === ScreenId.ENTER_PLAYERS) {
-    return <EnterPlayers state={ state } dispatch={ dispatch } />
-  }
-
-  if (state.currentScreen === ScreenId.GAME) {
-    return (
-      <Game state={ state } dispatch={ dispatch }/>
-    );
-  }
-
-  const showHowTo = () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO));
-  const showSetupGame = () => dispatch(new SwitchScreenAction(ScreenId.SETUP));
-  const log = (msg) => dispatch(new SetErrorAction(msg));
   return (
     <>
-      <MainMenu
-        log={ log }
-        onHelpSelected={ showHowTo }
-        onStartSelected={ showSetupGame }
-      />
-      <Text color="red">{ getLastError(state) }</Text>
+      { screen }
+      <ErrorViewer />
     </>
   );
+}
+
+const App = () => {
+  return (
+    <GameStateStore>
+      <ScreenDisplayer />
+    </GameStateStore>
+  )
 };
 
 module.exports = App;

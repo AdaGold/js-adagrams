@@ -13,8 +13,11 @@ const { ScreenId, SwitchScreenAction } = require('../gamestate/screens');
 const importJsx = require('import-jsx');
 const { Menu, MenuEntry } = importJsx('../components/menu');
 const NumberField = importJsx('../components/number-field');
+const { useGameStateContext } = importJsx('../components/gamestate-context');
 
-function SetupGame({ state, dispatch }) {
+function SetupGame() {
+  const { state, dispatch } = useGameStateContext();
+
   const fields = [ SET_DESIRED_PLAYERS, SET_NUMBER_ROUNDS, SET_TURN_SECONDS, 'menu' ];
   const [selectedField, setSelectedField] = useState(SET_DESIRED_PLAYERS);
 
@@ -48,10 +51,7 @@ function SetupGame({ state, dispatch }) {
     }
   }
 
-  const { lastError } = state;
-
   return (
-    <>
     <Box
       flexDirection='row'
       justifyContent='center'
@@ -96,14 +96,7 @@ function SetupGame({ state, dispatch }) {
         />
       </Box>
     </Box>
-    <Text color='red'>{ lastError }</Text>
-    </>
   )
-}
-
-SetupGame.propTypes = {
-  state: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
 }
 
 module.exports = SetupGame;

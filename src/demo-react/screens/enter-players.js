@@ -1,6 +1,5 @@
 const React = require('react');
-const { useState, useCallback } = React;
-const PropTypes = require('prop-types');
+const { useState, useCallback, useEffect } = React;
 
 const { Box, Text } = require('ink');
 const TextInput = require('ink-text-input').default;
@@ -8,11 +7,19 @@ const TextInput = require('ink-text-input').default;
 const { ScreenId, SwitchScreenAction } = require('../gamestate/screens');
 const basicAction = require("../gamestate/generic-action");
 const Actions = require('../gamestate/action-types');
+const { useGameStateContext } = require('../components/gamestate-context');
 
-function EnterPlayers({ state, dispatch }) {
+function EnterPlayers() {
+  const { state, dispatch } = useGameStateContext();
   const [inputText, setInputText] = useState('');
 
   const nextPlayerIdx = state.players.length + 1;
+
+  useEffect(() => {
+    if (nextPlayerIdx > state.desiredPlayers) {
+      dispatch(new SwitchScreenAction(ScreenId.GAME));
+    }
+  }, [dispatch, nextPlayerIdx]);
 
   const handleChange = useCallback((text) => {
     setInputText(text);
@@ -20,10 +27,6 @@ function EnterPlayers({ state, dispatch }) {
 
   const handleSubmit = useCallback((text) => {
     setInputText('');
-
-    if (nextPlayerIdx === state.desiredPlayers) {
-      dispatch(new SwitchScreenAction(ScreenId.GAME));
-    }
 
     dispatch(basicAction(Actions.ADD_PLAYER, text));
   }, [dispatch, nextPlayerIdx, state.desiredPlayers, setInputText]);
@@ -49,10 +52,5 @@ function EnterPlayers({ state, dispatch }) {
     </Box>
   );
 }
-
-EnterPlayers.propTypes = {
-  state: PropTypes.object.isRequired,
-  dispatch: PropTypes.func.isRequired
-};
 
 module.exports = EnterPlayers;
