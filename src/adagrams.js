@@ -115,33 +115,26 @@ export const wordInfo = (word) => {
             return 0;
         }
         const input = word.toUpperCase()
-        let wordHash = {};
         let counter = word.length > 6 ? 8 : 0;
-                        
+
         for (const letter of input){
-            wordHash[letter] = wordHash[letter]? (wordHash[letter] + letterScore[letter])  : letterScore[letter];
-            // counter += wordHash[key];
-           
+            counter += (letterScore[letter])
         }
-        for (const key in wordHash) {
-            counter += wordHash[key];
-        }wordInfoObj['word'] = word;
+        wordInfoObj['word'] = input;
         wordInfoObj['score'] = counter; 
         return wordInfoObj; 
-        
+                        
 };
 
 export const scoreWord = (word) => {
             if (word.length == 0){
                 return 0;
             }
-            let results = wordInfo(word); 
-            return results['score']; 
+            let results = wordInfo(word).score; 
+            return results;
 };
 
 export const highestScoreFrom = (words) => {
-        let winningScore = {}
-        let allInfo = []
         let scores = []
         let allBest = [] 
         for (const word of words){
