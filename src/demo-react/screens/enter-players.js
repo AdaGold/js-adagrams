@@ -19,11 +19,12 @@ function EnterPlayers({ state, dispatch }) {
   }, [setInputText]);
 
   const handleSubmit = useCallback((text) => {
+    setInputText('');
+
     if (nextPlayerIdx === state.desiredPlayers) {
       dispatch(new SwitchScreenAction(ScreenId.GAME));
     }
 
-    setInputText('');
     dispatch(basicAction(Actions.ADD_PLAYER, text));
   }, [dispatch, nextPlayerIdx, state.desiredPlayers, setInputText]);
 
