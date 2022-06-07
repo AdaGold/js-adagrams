@@ -7,5 +7,7 @@ module.exports = {
   SET_TURN_SECONDS: 'set-turn-seconds',
   SET_ERROR: 'set-error',
   CLEAR_ERROR: 'clear-error',
-  SWITCH_SCREEN: 'switch-screen'
+  SWITCH_SCREEN: 'switch-screen',
+  RESET: 'reset',
+  REMATCH: 'rematch'
 };
