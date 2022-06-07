@@ -1,6 +1,7 @@
 const { useReducer } = require('react');
 const Actions = require('./action-types');
 const { errorInterceptor } = require('./errors');
+const { validateOptionsInput } = require('./options');
 const { ScreenId } = require('./screens.js');
 
 const initialState = {
@@ -29,7 +30,7 @@ function gameStateReducer(state, action) {
   }
 }
 
-const reducer = errorInterceptor(gameStateReducer);
+const reducer = validateOptionsInput(errorInterceptor(gameStateReducer));
 
 function useGameReducer() {
   return useReducer(reducer, initialState);

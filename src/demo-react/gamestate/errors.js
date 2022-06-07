@@ -21,7 +21,12 @@ function errorInterceptor(wrappedReducer) {
           lastError: action.payload
         };
       default:
-        return wrappedReducer(state, action);
+        // If no error, any new action clears the last error state.
+        const errorRemovedState = {
+          ...state,
+          lastError: ''
+        };
+        return wrappedReducer(errorRemovedState, action);
     }
   }
 }

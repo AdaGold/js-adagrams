@@ -37,7 +37,10 @@ function SetupGame({ state, dispatch }) {
 
   }, { isActive: selectedField !== 'menu' });
 
+  const { lastError } = state;
+
   return (
+    <>
     <Box
       flexDirection='row'
       justifyContent='center'
@@ -76,6 +79,8 @@ function SetupGame({ state, dispatch }) {
         </NumberField>
       </Box>
     </Box>
+    <Text color='red'>{ lastError }</Text>
+    </>
   )
 }
 
@@ -89,20 +94,22 @@ function NumberField({ actionType, state, dispatch, children, isActive }) {
   const [tempInput, setTempInput] = useState('');
 
   useInput((input, key) => {
-    // Allow a string that is all digits.
-    if (/^[1-9]+$/.test(input)) {
+    // Allow input that is all digits.
+    if (/^[0-9]+$/.test(input)) {
       setTempInput(tempInput + input);
     }
 
     if (key.return) {
-      dispatch(action(actionType, tempInput));
+      if (tempInput !== '') {
+        dispatch(action(actionType, Number(tempInput)));
+      }
       setTempInput('');
     }
   }, { isActive });
 
   return (
     <Box flexDirection='row' marginY={ 1 }>
-      <Box marginX='2' flexBasis={ 2 }>
+      <Box marginX='2' flexBasis={ 2 } flexGrow={ 1 }>
         <Text inverse={ isActive } marginX={ 2 }>{ tempInput || currentValue }</Text>
       </Box>
       <Text>{ children }</Text>
