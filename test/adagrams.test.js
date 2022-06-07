@@ -1,9 +1,17 @@
+// import {Adagrams} from "../src/adagrams";
+
 import {
   drawLetters,
   usesAvailableLetters,
   scoreWord,
   highestScoreFrom,
 } from "adagrams";
+
+// import Adagrams from "../src/adagrams";
+
+// import Adagrams from "../src/adagrams";
+// let myInstance = new Adagrams()
+
 
 const LETTER_POOL = {
   A: 9,
@@ -149,7 +157,7 @@ describe("Adagrams", () => {
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
       expect(highestScoreFrom(words)).toEqual(correct);
-      
+
     });
 
     describe("in case of tied score", () => {
