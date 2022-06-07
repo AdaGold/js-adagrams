@@ -1,9 +1,10 @@
 const { SWITCH_SCREEN } = require('./action-types');
 
 const ScreenId = {
-  MAIN_MENU: 'main-menu',
+  ENTER_PLAYERS: 'enter-players',
   HOW_TO: 'how-to',
-  SETUP: 'game-setup'
+  MAIN_MENU: 'main-menu',
+  SETUP: 'game-setup',
 };
 
 class SwitchScreenAction {

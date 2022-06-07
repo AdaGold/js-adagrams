@@ -9,6 +9,7 @@ const {
   SET_NUMBER_ROUNDS,
   SET_TURN_SECONDS
 } = require('../gamestate/action-types');
+const { ScreenId, SwitchScreenAction } = require('../gamestate/screens');
 
 const importJsx = require('import-jsx');
 const { Menu, MenuEntry } = importJsx('../components/menu');
@@ -33,9 +34,28 @@ function SetupGame({ state, dispatch }) {
     } else if ((key.shift && key.tab) || key.upArrow || key.leftArrow) {
       setSelectedField(fields[Math.max(0, idxSelected - 1)]);
     }
-
-
   }, { isActive: selectedField !== 'menu' });
+
+  const selectFieldBeforeMenu = () => {
+    const idxMenu = fields.indexOf('menu');
+    setSelectedField(fields[idxMenu - 1]);
+  }
+
+  // TODO: MenuEntry could use a callback instead of this selection ID concept.
+  const menu = [
+    MenuEntry('Enter Names', 'names'),
+    MenuEntry('Go Back', 'go-back')
+  ]
+  const handleSelection = (selectionId) => {
+    switch(selectionId) {
+      case 'names':
+        dispatch(new SwitchScreenAction(ScreenId.ENTER_PLAYERS));
+        break;
+      case 'go-back':
+        dispatch(new SwitchScreenAction(ScreenId.MAIN_MENU));
+        break;
+    }
+  }
 
   const { lastError } = state;
 
@@ -77,6 +97,12 @@ function SetupGame({ state, dispatch }) {
         >
           Seconds per player per round (10-60)
         </NumberField>
+        <Menu
+          onItemSelected={ handleSelection }
+          onFocusPrevious={ selectFieldBeforeMenu }
+          items={ menu }
+          isActive={ selectedField === 'menu' }
+        />
       </Box>
     </Box>
     <Text color='red'>{ lastError }</Text>

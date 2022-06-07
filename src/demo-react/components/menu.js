@@ -17,14 +17,17 @@ MenuEntry.propTypes = PropTypes.shape({
   selecitonId: PropTypes.string
 });
 
-const Menu = ({ items, onItemSelected, width }) => {
+const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
   const menu = items;
   const [selectedIdx, setSelectedIdx] = useState(0);
 
   const inputHandler = (input, key) => {
-    if (key.upArrow || key.leftArrow) {
+    if (key.upArrow || key.leftArrow || (key.shift && key.tab)) {
       setSelectedIdx(Math.max(0, selectedIdx - 1));
-    } else if (key.downArrow || key.rightArrow) {
+      if (selectedIdx - 1 < 0) {
+        onFocusPrevious();
+      }
+    } else if (key.downArrow || key.rightArrow || (key.tab)) {
       setSelectedIdx(Math.min(menu.length - 1, selectedIdx + 1));
     } else if (key.return) {
       const selectedItemId = menu[selectedIdx].selectionId;
@@ -32,7 +35,7 @@ const Menu = ({ items, onItemSelected, width }) => {
     }
 
   };
-  useInput(inputHandler);
+  useInput(inputHandler, { isActive });
 
 
   return (
@@ -46,7 +49,7 @@ const Menu = ({ items, onItemSelected, width }) => {
         menu.map((menuEntry, idx) =>
           <Button
             key={ menuEntry.selectionId }
-            isSelected={ idx === selectedIdx }
+            isSelected={ isActive && idx === selectedIdx }
           >
             { menuEntry.title }
           </Button>
@@ -57,10 +60,17 @@ const Menu = ({ items, onItemSelected, width }) => {
 }
 
 Menu.propTypes = {
-  onItemSelected: PropTypes.func.isRequired,
+  isActive: PropTypes.bool,
   items: PropTypes.arrayOf(MenuEntry.propTypes).isRequired,
+  onItemSelected: PropTypes.func.isRequired,
+  onFocusPrevious: PropTypes.func,
   width: PropTypes.string
 };
+
+Menu.defaultProps = {
+  isActive: true,
+  onFocusPrevious: () => {}
+}
 
 module.exports = {
   Menu,

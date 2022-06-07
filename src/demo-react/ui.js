@@ -31,6 +31,10 @@ const App = () => {
     return <SetupGame state={ state } dispatch={ dispatch } />;
   }
 
+  if (state.currentScreen === ScreenId.ENTER_PLAYERS) {
+    return <Text color='yellowBright'>TODO: allow player entry</Text>
+  }
+
   const showHowTo = () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO));
   const showSetupGame = () => dispatch(new SwitchScreenAction(ScreenId.SETUP));
   const log = (msg) => dispatch(new SetErrorAction(msg));
