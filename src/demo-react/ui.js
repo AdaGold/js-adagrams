@@ -1,6 +1,6 @@
 const React = require('react');
 
-const { Text } = require('ink');
+const { Box, Text } = require('ink');
 
 const { useGameReducer } = require('./gamestate/reducer');
 const { SetErrorAction, getLastError } = require('./gamestate/errors');
@@ -15,6 +15,7 @@ const importJsx = require('import-jsx');
 const HowTo = importJsx('./screens/how-to');
 const MainMenu = importJsx('./screens/main-menu');
 const SetupGame = importJsx('./screens/game-setup');
+const EnterPlayers = importJsx('./screens/enter-players');
 
 const App = () => {
   // TODO: Instead of sending state & dispatch to all the screens, switch to
@@ -35,7 +36,16 @@ const App = () => {
   }
 
   if (state.currentScreen === ScreenId.ENTER_PLAYERS) {
-    return <Text color='yellowBright'>TODO: allow player entry</Text>
+    return <EnterPlayers state={ state } dispatch={ dispatch } />
+  }
+
+  if (state.currentScreen === ScreenId.GAME) {
+    return (
+      <Box flexDirection='column'>
+        <Text color='yellowBright'>TODO: Add game screen!</Text>
+        { state.players.map((player, idx) => <Text key={player.name}>{idx+1}: {player.name}</Text>)}
+      </Box>
+    );
   }
 
   const showHowTo = () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO));

@@ -5,6 +5,8 @@ const ScreenId = {
   HOW_TO: 'how-to',
   MAIN_MENU: 'main-menu',
   SETUP: 'game-setup',
+  GAME: 'game',
+  WIN: 'win'
 };
 
 class SwitchScreenAction {

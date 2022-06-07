@@ -11,7 +11,7 @@ const initialState = {
   desiredPlayers: 2,
   roundsPerGame: 3,
   currentPlayer: null, // No players initially.
-  players: {}, // No players known initially.
+  players: [], // No players known initially.
   lastError: "", // The error set by the last action
 };
 
@@ -25,6 +25,12 @@ function gameStateReducer(state, action) {
       return { ...state, desiredPlayers: action.payload };
     case Actions.SET_TURN_SECONDS:
       return { ...state, secondsPerTurn: action.payload };
+    case Actions.ADD_PLAYER:
+      const newPlayer = {
+        name: action.payload,
+        words: [[]] // a list of word for each round, starting with an empty round 1 list
+      };
+      return { ...state, players: [ ...state.players, newPlayer ] }
     default:
       return { ...state };
   }
