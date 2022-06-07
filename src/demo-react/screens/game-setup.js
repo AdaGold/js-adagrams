@@ -3,7 +3,6 @@ const { useState } = React;
 const PropTypes = require('prop-types');
 const { Box, Text, useInput } = require('ink');
 
-const action = require('../gamestate/generic-action');
 const {
   SET_DESIRED_PLAYERS,
   SET_NUMBER_ROUNDS,
@@ -13,15 +12,7 @@ const { ScreenId, SwitchScreenAction } = require('../gamestate/screens');
 
 const importJsx = require('import-jsx');
 const { Menu, MenuEntry } = importJsx('../components/menu');
-
-function valueOfField(actionType, state) {
-  switch(actionType) {
-    case SET_DESIRED_PLAYERS: return state.desiredPlayers;
-    case SET_NUMBER_ROUNDS: return state.roundsPerGame;
-    case SET_TURN_SECONDS: return state.secondsPerTurn;
-    default: return null;
-  }
-}
+const NumberField = importJsx('../components/number-field');
 
 function SetupGame({ state, dispatch }) {
   const fields = [ SET_DESIRED_PLAYERS, SET_NUMBER_ROUNDS, SET_TURN_SECONDS, 'menu' ];
@@ -75,25 +66,25 @@ function SetupGame({ state, dispatch }) {
       >
         <NumberField
           actionType={ SET_DESIRED_PLAYERS }
-          state={ state }
           dispatch={ dispatch }
           isActive={ selectedField === SET_DESIRED_PLAYERS }
+          currentValue={ state.desiredPlayers }
         >
           Number of players (1-4)
         </NumberField>
         <NumberField
           actionType={ SET_NUMBER_ROUNDS }
-          state={state}
           dispatch={ dispatch }
           isActive={ selectedField === SET_NUMBER_ROUNDS }
+          currentValue={ state.roundsPerGame }
         >
           Number of rounds (1-5)
         </NumberField>
         <NumberField
           actionType={ SET_TURN_SECONDS }
-          state={ state }
           dispatch={ dispatch }
           isActive={ selectedField === SET_TURN_SECONDS }
+          currentValue={ state.secondsPerTurn }
         >
           Seconds per player per round (10-60)
         </NumberField>
@@ -113,34 +104,6 @@ function SetupGame({ state, dispatch }) {
 SetupGame.propTypes = {
   state: PropTypes.object.isRequired,
   dispatch: PropTypes.func.isRequired
-}
-
-function NumberField({ actionType, state, dispatch, children, isActive }) {
-  const currentValue = String(valueOfField(actionType, state));
-  const [tempInput, setTempInput] = useState('');
-
-  useInput((input, key) => {
-    // Allow input that is all digits.
-    if (/^[0-9]+$/.test(input)) {
-      setTempInput(tempInput + input);
-    }
-
-    if (key.return) {
-      if (tempInput !== '') {
-        dispatch(action(actionType, Number(tempInput)));
-      }
-      setTempInput('');
-    }
-  }, { isActive });
-
-  return (
-    <Box flexDirection='row' marginY={ 1 }>
-      <Box marginX='2' flexBasis={ 2 } flexGrow={ 1 }>
-        <Text inverse={ isActive } marginX={ 2 }>{ tempInput || currentValue }</Text>
-      </Box>
-      <Text>{ children }</Text>
-    </Box>
-  )
 }
 
 module.exports = SetupGame;
