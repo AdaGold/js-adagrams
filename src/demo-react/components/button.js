@@ -3,13 +3,10 @@ const PropTypes = require('prop-types');
 
 const { Box, Text } = require('ink');
 
-function Button(props) {
-  // TODO: Try using `inverse` for selected, instead.
-  const bgColor = props.isSelected ? 'white' : '';
-  const color = props.isSelected ? 'black' : '';
+function Button({ children, isSelected }) {
   return (
     <Box paddingX='1' marginX='2' borderStyle='round'>
-      <Text color={ color } backgroundColor={ bgColor }>{ props.children }</Text>
+      <Text inverse={ isSelected }>{ children }</Text>
     </Box>
   );
 }
