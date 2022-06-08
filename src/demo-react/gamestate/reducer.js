@@ -1,19 +1,49 @@
 const { useReducer } = require('react');
 const Actions = require('./action-types');
 const { errorMiddleware } = require('./errors');
+const { timerMiddleware } = require('./timer');
 const { validateOptionsInput } = require('./options');
 const { ScreenId } = require('./screens.js');
 
-const initialState = {
+const GO_STRAIGHT_TO_GAME = true;
+
+const initialState_real = {
   currentScreen: ScreenId.MAIN_MENU,
+  lastError: "", // The error set by the last action
+  // in-game props
   gameTimer: 15, // seconds
+  currentHand: [], // A result of adagrams.drawLetters()
+  currentRound: 0, // Starts on first round
+  currentPlayer: 0, // First player starts as current.
+  // settings
   secondsPerTurn: 15,
   desiredPlayers: 2,
   roundsPerGame: 3,
-  currentPlayer: null, // No players initially.
   players: [], // No players known initially.
-  lastError: "", // The error set by the last action
 };
+
+// For debugging, this goes straight to the game screen:
+const initialState_straighttoGame = {
+  currentScreen: ScreenId.GAME,
+  lastError: "", // The error set by the last action
+  // in-game props
+  gameTimer: 1, // seconds
+  currentHand: ['A', 'B', 'D'], // A result of adagrams.drawLetters()
+  currentRound: 0, // Starts on first round
+  currentPlayer: 0, // First player starts as current.
+  // settings
+  secondsPerTurn: 1, // Invalid value to set, but I can still set it by default. You can't cage me!
+  desiredPlayers: 4,
+  roundsPerGame: 1,
+  players: [
+    { name: 'First Player', words: [[]]},
+    { name: 'Second Player', words: [[]]},
+    { name: 'Third Player', words: [[]]},
+    { name: 'Fourth Player', words: [[]]}
+  ],
+};
+
+const initialState = GO_STRAIGHT_TO_GAME ? initialState_straighttoGame : initialState_real;
 
 function gameStateReducer(state, action) {
   switch (action.type) {
@@ -30,13 +60,50 @@ function gameStateReducer(state, action) {
         name: action.payload,
         words: [[]] // a list of word for each round, starting with an empty round 1 list
       };
-      return { ...state, players: [ ...state.players, newPlayer ] }
+      return { ...state, players: [ ...state.players, newPlayer ] };
+    case Actions.ADVANCE_TURN:
+      return advanceTurn(state);
     default:
       return { ...state };
   }
 }
 
-const reducer = validateOptionsInput(errorMiddleware(gameStateReducer));
+function advanceTurn(state) {
+  const { players, currentPlayer, currentRound } = state;
+  if (players.length === 0) {
+    return state;
+  }
+
+  const nextPlayer = (currentPlayer + 1) % players.length;
+  const nextRound = currentRound + 1;
+
+  // If nextPlayer is the first player...
+  //   and this is the last round, go to the win screen.
+  //   Otherwise advance the round.
+  // and if nextPlayer isn't the first player, just advance player.
+  if (nextPlayer === 0) {
+    if (nextRound >= state.roundsPerGame) {
+      return {
+        ...state,
+        currentScreen: ScreenId.WIN
+      };
+    } else {
+      // TODO: Update hand here.
+      return {
+        ...state,
+        currentPlayer: 0,
+        currentRound: nextRound
+      }
+    }
+  }
+
+  return {
+    ...state,
+    currentPlayer: nextPlayer
+  }
+}
+
+const reducer = timerMiddleware(validateOptionsInput(errorMiddleware(gameStateReducer)));
 
 function useGameReducer() {
   return useReducer(reducer, initialState);
