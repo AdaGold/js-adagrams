@@ -8,7 +8,6 @@ module.exports = {
   SET_NUMBER_ROUNDS: 'set-number-rounds',
   SET_TURN_SECONDS: 'set-turn-seconds',
   SET_ERROR: 'set-error',
-  CLEAR_ERROR: 'clear-error',
   SWITCH_SCREEN: 'switch-screen',
   RESET: 'reset',
   REMATCH: 'rematch'
