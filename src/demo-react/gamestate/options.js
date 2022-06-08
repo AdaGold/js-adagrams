@@ -1,4 +1,3 @@
-const basicAction = require('./generic-action');
 const Actions = require('./action-types');
 const { SetErrorAction } = require('./errors');
 

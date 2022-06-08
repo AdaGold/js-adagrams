@@ -3,6 +3,7 @@ const Actions = require('./action-types');
 const { errorMiddleware } = require('./errors');
 const { timerMiddleware } = require('./timer');
 const { validateOptionsInput } = require('./options');
+const { validateGuessInput } = require('./rules');
 const { ScreenId } = require('./screens.js');
 
 const GO_STRAIGHT_TO_GAME = true;
@@ -61,6 +62,8 @@ function gameStateReducer(state, action) {
         words: [[]] // a list of word for each round, starting with an empty round 1 list
       };
       return { ...state, players: [ ...state.players, newPlayer ] };
+    case Actions.GUESS:
+      return guessWord(state, action.payload);
     case Actions.ADVANCE_TURN:
       return advanceTurn(state);
     case Actions.REMATCH:
@@ -108,7 +111,12 @@ function advanceTurn(state) {
       return {
         ...state,
         currentPlayer: 0,
-        currentRound: nextRound
+        currentRound: nextRound,
+        // Add another round of words to each player.
+        players: state.players.map(p => ({
+          name: p.name,
+          words: [...p.words, []]
+        }))
       }
     }
   }
@@ -119,7 +127,32 @@ function advanceTurn(state) {
   }
 }
 
-const reducer = timerMiddleware(validateOptionsInput(errorMiddleware(gameStateReducer)));
+function guessWord(state, word) {
+  // Add the word to the current player's current round list.
+  return {
+    ...state,
+    players: state.players.map((p, pIdx) => ({
+      name: p.name,
+      words: p.words.map((wordsForRound, wIdx) => {
+        if (wIdx === state.currentRound && pIdx === state.currentPlayer) {
+          return [...wordsForRound, word];
+        }
+        return wordsForRound;
+      })
+    }))
+  };
+}
+
+const reducer =
+  timerMiddleware(
+    validateGuessInput(
+      validateOptionsInput(
+        errorMiddleware(
+          gameStateReducer
+        )
+      )
+    )
+  );
 
 function useGameReducer() {
   return useReducer(reducer, initialState);
