@@ -63,6 +63,22 @@ function gameStateReducer(state, action) {
       return { ...state, players: [ ...state.players, newPlayer ] };
     case Actions.ADVANCE_TURN:
       return advanceTurn(state);
+    case Actions.REMATCH:
+      return {
+        ...state,
+        currentScreen: ScreenId.GAME,
+        currentHand: ['A'], // TODO: read a new hand here!
+        currentRound: 0,
+        currentPlayer: 0,
+        players: state.players.map(existingPlayer => ({
+          ...existingPlayer,
+          words: [[]]
+        }))
+      };
+    case Actions.RESET:
+      return {
+        ...initialState
+      };
     default:
       return { ...state };
   }

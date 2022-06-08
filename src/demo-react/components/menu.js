@@ -33,7 +33,11 @@ const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
       setSelectedIdx(Math.min(menu.length - 1, selectedIdx + 1));
     } else if (key.return) {
       const selectedItemId = menu[selectedIdx].selectionId;
-      onItemSelected(selectedItemId);
+      if (typeof selectedItemId === 'function') {
+        selectedItemId();
+      } else {
+        onItemSelected(selectedItemId);
+      }
     }
 
   };
@@ -50,7 +54,7 @@ const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
       {
         menu.map((menuEntry, idx) =>
           <Button
-            key={ menuEntry.selectionId }
+            key={ menuEntry.title }
             isSelected={ isActive && idx === selectedIdx }
             color={ menuEntry.color }
           >
@@ -65,14 +69,14 @@ const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
 Menu.propTypes = {
   isActive: PropTypes.bool,
   items: PropTypes.arrayOf(MenuEntry.propTypes).isRequired,
-  onItemSelected: PropTypes.func.isRequired,
   onFocusPrevious: PropTypes.func,
   width: PropTypes.string
 };
 
 Menu.defaultProps = {
   isActive: true,
-  onFocusPrevious: () => {}
+  onFocusPrevious: () => {},
+  onItemSelected: () => {}
 }
 
 module.exports = {

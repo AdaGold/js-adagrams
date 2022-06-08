@@ -16,6 +16,7 @@ const MainMenu = importJsx('./screens/main-menu');
 const SetupGame = importJsx('./screens/game-setup');
 const EnterPlayers = importJsx('./screens/enter-players');
 const Game = importJsx('./screens/game');
+const Win = importJsx('./screens/win');
 const { GameStateStore, useGameStateContext } = importJsx('./components/gamestate-context');
 const ErrorViewer = importJsx('./components/error-viewer');
 
@@ -46,6 +47,8 @@ function ScreenDisplayer() {
     screen = <EnterPlayers />;
   } else if (state.currentScreen === ScreenId.GAME) {
     screen = <Game />;
+  } else if (state.currentScreen === ScreenId.WIN) {
+    screen = <Win />;
   }
 
   return (
