@@ -1,20 +1,17 @@
-const React = require('react');
-const { useEffect, useCallback, useState } = React;
-const PropTypes = require('prop-types');
+import React, { useEffect, useCallback, useState } from 'react';
+import PropTypes from 'prop-types';
 
-const { Box, Text } = require('ink');
-const TextInput = require('ink-text-input').default;
+import { Box, Text } from 'ink';
+import TextInput from 'ink-text-input';
 
-const basicAction = require('../gamestate/generic-action');
-const { GUESS } = require('../gamestate/action-types');
+import basicAction from '../gamestate/generic-action';
+import { GUESS } from '../gamestate/action-types';
+import GameTimer from '../components/timer';
+import { useGameStateContext } from '../components/gamestate-context';
 
 import Adagrams from 'demo/adagrams';
 
-const importJsx = require('import-jsx');
-const GameTimer = importJsx('../components/timer');
-const { useGameStateContext } = importJsx('../components/gamestate-context');
-
-function Game() {
+export default function Game() {
   const { state } = useGameStateContext();
   return (
     <Box
@@ -108,5 +105,3 @@ PlayerGuesses.propTypes = {
   isActive: PropTypes.bool,
   round: PropTypes.number.isRequired
 }
-
-module.exports = Game;

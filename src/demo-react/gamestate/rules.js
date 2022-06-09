@@ -1,9 +1,9 @@
-const Actions = require('./action-types');
-const { SetErrorAction } = require('./errors');
+import Actions from './action-types';
+import { SetErrorAction } from './errors';
 
 import Adagrams from 'demo/adagrams';
 
-function validateGuessInput(wrappedReducer) {
+export function validateGuessInput(wrappedReducer) {
   return (state, action) => {
     if (action.type === Actions.GUESS) {
       const word = action.payload;
@@ -31,7 +31,3 @@ function wordHasBeenGuessed(state, word) {
   }
   return false;
 }
-
-module.exports = {
-  validateGuessInput
-};

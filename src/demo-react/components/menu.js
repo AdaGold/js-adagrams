@@ -1,13 +1,12 @@
-const React = require('react');
-const { useState } = require('react');
-const PropTypes = require('prop-types');
+import React from 'react';
+import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const { Box, useInput } = require('ink');
+import { Box, useInput } from 'ink';
 
-const importJsx = require('import-jsx');
-const Button = importJsx('./button');
+import Button from './button';
 
-const MenuEntry = (title, selectionId, color) => ({
+export const MenuEntry = (title, selectionId, color) => ({
   color,
   title,
   selectionId
@@ -19,7 +18,7 @@ MenuEntry.propTypes = PropTypes.shape({
   color: PropTypes.string
 });
 
-const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
+export const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
   const menu = items;
   const [selectedIdx, setSelectedIdx] = useState(0);
 
@@ -78,8 +77,3 @@ Menu.defaultProps = {
   onFocusPrevious: () => {},
   onItemSelected: () => {}
 }
-
-module.exports = {
-  Menu,
-  MenuEntry
-};

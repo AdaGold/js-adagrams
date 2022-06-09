@@ -1,21 +1,18 @@
-const React = require('react');
-const { useState } = React;
-const PropTypes = require('prop-types');
-const { Box, Text, useInput } = require('ink');
+import React, { useState } from 'react';
+import { Box, useInput } from 'ink';
 
-const {
+import {
   SET_DESIRED_PLAYERS,
   SET_NUMBER_ROUNDS,
   SET_TURN_SECONDS
-} = require('../gamestate/action-types');
-const { ScreenId, SwitchScreenAction } = require('../gamestate/screens');
+} from '../gamestate/action-types';
+import { ScreenId, SwitchScreenAction } from '../gamestate/screens';
 
-const importJsx = require('import-jsx');
-const { Menu, MenuEntry } = importJsx('../components/menu');
-const NumberField = importJsx('../components/number-field');
-const { useGameStateContext } = importJsx('../components/gamestate-context');
+import { Menu, MenuEntry } from '../components/menu';
+import NumberField from '../components/number-field';
+import { useGameStateContext } from '../components/gamestate-context';
 
-function SetupGame() {
+export default function SetupGame() {
   const { state, dispatch } = useGameStateContext();
 
   const fields = [ SET_DESIRED_PLAYERS, SET_NUMBER_ROUNDS, SET_TURN_SECONDS, 'menu' ];
@@ -98,5 +95,3 @@ function SetupGame() {
     </Box>
   )
 }
-
-module.exports = SetupGame;

@@ -2,13 +2,13 @@ import React, { createContext, useContext, useMemo } from 'react';
 
 import { useGameReducer } from '../gamestate/reducer';
 
-const GameStateContext = createContext();
+export const GameStateContext = createContext();
 
-function useGameStateContext() {
+export function useGameStateContext() {
   return useContext(GameStateContext);
 }
 
-function GameStateStore({ children }) {
+export function GameStateStore({ children }) {
   const [state, dispatch] = useGameReducer();
   const contextValue = useMemo(() => {
     return { state, dispatch };
@@ -20,9 +20,3 @@ function GameStateStore({ children }) {
     </GameStateContext.Provider>
   );
 }
-
-module.exports = {
-  GameStateStore,
-  GameStateContext,
-  useGameStateContext
-};

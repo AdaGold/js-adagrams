@@ -1,12 +1,11 @@
-const React = require('react');
-const PropTypes = require('prop-types');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const { Box, useApp } = require('ink');
+import { Box, useApp } from 'ink';
 
-const importJsx = require('import-jsx');
-const { Menu, MenuEntry } = importJsx('../components/menu');
+import { Menu, MenuEntry } from '../components/menu';
 
-const MainMenu = ({ log, onHelpSelected, onStartSelected }) => {
+export default function MainMenu({ log, onHelpSelected, onStartSelected }) {
   const { exit } = useApp();
   const mainMenu = [
     MenuEntry('Start New Game', 'start'),
@@ -41,5 +40,3 @@ MainMenu.propTypes = {
   onHelpSelected: PropTypes.func.isRequired,
   onStartSelected: PropTypes.func.isRequired
 }
-
-module.exports = MainMenu;

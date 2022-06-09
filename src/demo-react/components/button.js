@@ -1,9 +1,9 @@
-const React = require('react');
-const PropTypes = require('prop-types');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const { Box, Text } = require('ink');
+import { Box, Text } from 'ink';
 
-function Button({ children, color, isSelected }) {
+export default function Button({ children, color, isSelected }) {
   return (
     <Box paddingX='1' marginX='2' borderStyle='round' borderColor={ color }>
       <Text inverse={ isSelected } color={ color }>{ children }</Text>
@@ -20,5 +20,3 @@ Button.propTypes = {
 Button.defaultProps = {
   isSelected: false
 }
-
-module.exports = Button;

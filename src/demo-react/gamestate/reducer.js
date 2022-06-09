@@ -1,11 +1,11 @@
-const { useReducer } = require('react');
+import { useReducer } from 'react';
 
-const Actions = require('./action-types');
-const { errorMiddleware } = require('./errors');
-const { validateOptionsInput } = require('./options');
-const { validateGuessInput } = require('./rules');
-const { ScreenId } = require('./screens');
-const { timerMiddleware } = require('./timer');
+import Actions from './action-types';
+import { errorMiddleware } from './errors';
+import { validateOptionsInput } from './options';
+import { validateGuessInput } from './rules';
+import { ScreenId } from './screens';
+import { timerMiddleware } from './timer';
 
 import Adagrams from 'demo/adagrams';
 
@@ -47,7 +47,7 @@ const initialState_straighttoGame = {
   ],
 };
 
-const initialState = GO_STRAIGHT_TO_GAME ? initialState_straighttoGame : initialState_real;
+export const initialState = GO_STRAIGHT_TO_GAME ? initialState_straighttoGame : initialState_real;
 
 function gameStateReducer(state, action) {
   switch (action.type) {
@@ -146,7 +146,7 @@ function guessWord(state, word) {
   };
 }
 
-const reducer =
+export const reducer =
   timerMiddleware(
     validateGuessInput(
       validateOptionsInput(
@@ -157,12 +157,6 @@ const reducer =
     )
   );
 
-function useGameReducer() {
+export function useGameReducer() {
   return useReducer(reducer, initialState);
 }
-
-module.exports = {
-  useGameReducer,
-  reducer,
-  initialState
-};

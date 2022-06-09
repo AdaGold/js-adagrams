@@ -1,24 +1,21 @@
-const React = require('react');
+import React from 'react';
 
-const { Box, Text } = require('ink');
-
-const { SetErrorAction } = require('./gamestate/errors');
-const {
+import { SetErrorAction } from './gamestate/errors';
+import {
   SwitchScreenAction,
   ScreenId,
   onHelpScreen,
   onSetupScreen
-} = require('./gamestate/screens');
+} from './gamestate/screens';
 
-const importJsx = require('import-jsx');
-const HowTo = importJsx('./screens/how-to');
-const MainMenu = importJsx('./screens/main-menu');
-const SetupGame = importJsx('./screens/game-setup');
-const EnterPlayers = importJsx('./screens/enter-players');
-const Game = importJsx('./screens/game');
-const Win = importJsx('./screens/win');
-const { GameStateStore, useGameStateContext } = importJsx('./components/gamestate-context');
-const ErrorViewer = importJsx('./components/error-viewer');
+import HowTo from './screens/how-to';
+import MainMenu from './screens/main-menu';
+import SetupGame from './screens/game-setup';
+import EnterPlayers from './screens/enter-players';
+import Game from './screens/game';
+import Win from './screens/win';
+import { GameStateStore, useGameStateContext } from './components/gamestate-context';
+import ErrorViewer from './components/error-viewer';
 
 function ScreenDisplayer() {
   const { state, dispatch } = useGameStateContext();
@@ -59,12 +56,10 @@ function ScreenDisplayer() {
   );
 }
 
-const App = () => {
+export default function App() {
   return (
     <GameStateStore>
       <ScreenDisplayer />
     </GameStateStore>
   )
-};
-
-module.exports = App;
+}

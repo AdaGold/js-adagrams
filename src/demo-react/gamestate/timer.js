@@ -1,10 +1,7 @@
-const basicAction = require('./generic-action');
-const Actions = require('./action-types');
+import basicAction from './generic-action';
+import Actions from './action-types';
 
-// For debugging
-const { SetErrorAction } = require('./errors');
-
-function timerMiddleware(wrappedReducer) {
+export function timerMiddleware(wrappedReducer) {
   return (state, action) => {
     if (action.type !== Actions.TICK) {
       return wrappedReducer(state, action);
@@ -13,9 +10,6 @@ function timerMiddleware(wrappedReducer) {
     // On a tick, do the following:
     // 1. If time is left on the clock, decrement the timer.
     // 2. If the timer is at 0, advance the turn.
-
-    let newStateForDebug = state;
-
     if (state.gameTimer > 1) {
       return {
         ...state,
@@ -31,7 +25,3 @@ function timerMiddleware(wrappedReducer) {
     }
   }
 }
-
-module.exports = {
-  timerMiddleware
-};

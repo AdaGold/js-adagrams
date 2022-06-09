@@ -1,15 +1,12 @@
-const React = require('react');
-const { useEffect } = React;
-const PropTypes = require('prop-types');
+import React, { useEffect } from 'react';
 
-const { Box, Text } = require('ink');
+import { Text } from 'ink';
 
-const Actions = require('../gamestate/action-types');
+import Actions from '../gamestate/action-types';
 
-const importJsx = require('import-jsx');
-const { useGameStateContext } = importJsx('../components/gamestate-context');
+import { useGameStateContext } from '../components/gamestate-context';
 
-function GameTimer() {
+export default function GameTimer() {
   const { state, dispatch } = useGameStateContext();
 
   useEffect(() => {
@@ -35,5 +32,3 @@ function GameTimer() {
     <Text>Time: <Text color={ color }>{ state.gameTimer }</Text></Text>
   )
 }
-
-module.exports = GameTimer;

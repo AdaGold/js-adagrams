@@ -1,15 +1,14 @@
-const React = require('react');
-const { useState, useCallback, useEffect } = React;
+import React, { useState, useCallback, useEffect } from 'react';
 
-const { Box, Text } = require('ink');
-const TextInput = require('ink-text-input').default;
+import { Box, Text } from 'ink';
+import TextInput from 'ink-text-input';
 
-const { ScreenId, SwitchScreenAction } = require('../gamestate/screens');
-const basicAction = require("../gamestate/generic-action");
-const Actions = require('../gamestate/action-types');
-const { useGameStateContext } = require('../components/gamestate-context');
+import { ScreenId, SwitchScreenAction } from '../gamestate/screens';
+import basicAction from "../gamestate/generic-action";
+import Actions from '../gamestate/action-types';
+import { useGameStateContext } from '../components/gamestate-context';
 
-function EnterPlayers() {
+export default function EnterPlayers() {
   const { state, dispatch } = useGameStateContext();
   const [inputText, setInputText] = useState('');
 
@@ -52,5 +51,3 @@ function EnterPlayers() {
     </Box>
   );
 }
-
-module.exports = EnterPlayers;

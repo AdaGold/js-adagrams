@@ -1,17 +1,17 @@
-const { SET_ERROR } = require('./action-types');
+import { SET_ERROR } from './action-types';
 
-class SetErrorAction {
+export class SetErrorAction {
   constructor(message) {
     this.type = SET_ERROR;
     this.payload = message;
   }
 }
 
-function getLastError(state) {
+export function getLastError(state) {
   return state.lastError
 }
 
-function errorMiddleware(wrappedReducer) {
+export function errorMiddleware(wrappedReducer) {
   // Intercept any error actions and forward the rest to the wrapped reducer.
   return (state, action) => {
     switch(action.type) {
@@ -30,9 +30,3 @@ function errorMiddleware(wrappedReducer) {
     }
   }
 }
-
-module.exports = {
-  SetErrorAction,
-  getLastError,
-  errorMiddleware
-};

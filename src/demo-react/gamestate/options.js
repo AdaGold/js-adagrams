@@ -1,7 +1,7 @@
-const Actions = require('./action-types');
-const { SetErrorAction } = require('./errors');
+import Actions from './action-types';
+import { SetErrorAction } from './errors';
 
-function validateOptionsInput(wrappedReducer) {
+export function validateOptionsInput(wrappedReducer) {
   return (state, action) => {
     // If any of the payload input is invalid, throw the current action
     // away and instead send an error action.
@@ -46,7 +46,3 @@ function validateOptionsInput(wrappedReducer) {
     return wrappedReducer(state, action);
   };
 }
-
-module.exports = {
-  validateOptionsInput
-};

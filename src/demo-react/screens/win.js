@@ -1,14 +1,12 @@
-const React = require('react');
-const PropTypes = require('prop-types');
+import React from 'react';
 
-const { Box, Text } = require('ink');
+import { Box, Text } from 'ink';
 
-const importJsx = require('import-jsx');
-const Actions = require('../gamestate/action-types');
-const { Menu, MenuEntry } = importJsx('../components/menu');
-const { useGameStateContext } = importJsx('../components/gamestate-context');
+import Actions from '../gamestate/action-types';
+import { Menu, MenuEntry } from '../components/menu';
+import { useGameStateContext } from '../components/gamestate-context';
 
-function Win(props) {
+export default function Win() {
   const { state, dispatch } = useGameStateContext();
   const menu = [
     MenuEntry('Rematch!', () => dispatch({ type: Actions.REMATCH })),
@@ -27,8 +25,3 @@ function Win(props) {
     </Box>
   );
 }
-
-Win.propTypes = {
-};
-
-module.exports = Win;

@@ -1,13 +1,11 @@
-const React = require('react');
-const PropTypes = require('prop-types');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const importJsx = require('import-jsx');
-const { Menu, MenuEntry } = importJsx('../components/menu');
+import { Menu, MenuEntry } from '../components/menu';
 
-const { Text, Box, Newline } = require('ink');
+import { Text, Box, Newline } from 'ink';
 
-const HowTo = (props) => {
-  const { showMainMenu } = props;
+export default function HowTo({ showMainMenu }) {
   const oneButtonMenu = [ MenuEntry('Go Back', 'goback') ];
 
   return (
@@ -38,5 +36,3 @@ const HowTo = (props) => {
 HowTo.propTypes = {
   showMainMenu: PropTypes.func.isRequired
 }
-
-module.exports = HowTo;

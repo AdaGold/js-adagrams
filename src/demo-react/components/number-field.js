@@ -1,12 +1,13 @@
-const React = require('react');
-const { useState } = React;
-const PropTypes = require('prop-types');
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-const { Box, Text, useInput } = require('ink');
+import { Box, Text, useInput } from 'ink';
 
-const action = require('../gamestate/generic-action');
+import action from '../gamestate/generic-action';
 
-function NumberField({ actionType, dispatch, children, currentValue, isActive }) {
+export default function NumberField({
+  actionType, dispatch, children, currentValue, isActive
+}) {
   const [tempInput, setTempInput] = useState('');
 
   useInput((input, key) => {
@@ -40,5 +41,3 @@ NumberField.propTypes = {
   isActive: PropTypes.bool,
   currentValue: PropTypes.number
 };
-
-module.exports = NumberField;

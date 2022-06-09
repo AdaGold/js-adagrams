@@ -1,4 +1,4 @@
-module.exports = {
+const Actions = {
   GUESS: 'guess',
   ADD_PLAYER: 'add-player',
   TICK: 'tick',
@@ -12,3 +12,5 @@ module.exports = {
   RESET: 'reset',
   REMATCH: 'rematch'
 };
+
+export default Actions;

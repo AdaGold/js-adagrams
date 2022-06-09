@@ -1,12 +1,10 @@
-const React = require('react');
+import React from 'react';
 
-const { Text } = require('ink');
+import { Text } from 'ink';
 
-const { useGameStateContext } = require('./gamestate-context');
+import { useGameStateContext } from './gamestate-context';
 
-function ErrorViewer() {
+export default function ErrorViewer() {
   const { state } = useGameStateContext();
   return <Text color='red'>{ state.lastError }</Text>
 }
-
-module.exports = ErrorViewer;
