@@ -36,7 +36,8 @@ export default function Game() {
       </Box>
       <Box
         flexDirection='row'
-        justifyContent='space-around'
+        justifyContent='center'
+        marginTop='1'
       >
         {
           state.players.map((player, idx) =>
@@ -72,8 +73,10 @@ function PlayerGuesses({ player, round, isActive }) {
   }, [dispatch, setInputText]);
 
   return (
-    <Box flexDirection='column'>
-      <Text inverse={ isActive }>{player.name}</Text>
+    <Box flexDirection='column' marginX='1' flexBasis='19'>
+      <Box alignSelf='center'>
+        <Text inverse={ isActive }>{player.name}</Text>
+      </Box>
       {
         player.words[round].map((wordInCurrentRound, idx) => 
           <Text key={wordInCurrentRound}>
