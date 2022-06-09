@@ -1,19 +1,22 @@
 const { useReducer } = require('react');
+
 const Actions = require('./action-types');
 const { errorMiddleware } = require('./errors');
-const { timerMiddleware } = require('./timer');
 const { validateOptionsInput } = require('./options');
 const { validateGuessInput } = require('./rules');
-const { ScreenId } = require('./screens.js');
+const { ScreenId } = require('./screens');
+const { timerMiddleware } = require('./timer');
 
-const GO_STRAIGHT_TO_GAME = true;
+import Adagrams from 'demo/adagrams';
+
+const GO_STRAIGHT_TO_GAME = false;
 
 const initialState_real = {
   currentScreen: ScreenId.MAIN_MENU,
   lastError: "", // The error set by the last action
   // in-game props
   gameTimer: 15, // seconds
-  currentHand: [], // A result of adagrams.drawLetters()
+  currentHand: Adagrams.drawLetters(),
   currentRound: 0, // Starts on first round
   currentPlayer: 0, // First player starts as current.
   // settings
@@ -28,14 +31,14 @@ const initialState_straighttoGame = {
   currentScreen: ScreenId.GAME,
   lastError: "", // The error set by the last action
   // in-game props
-  gameTimer: 1, // seconds
-  currentHand: ['A', 'B', 'D'], // A result of adagrams.drawLetters()
+  gameTimer: 5, // seconds
+  currentHand: Adagrams.drawLetters(),
   currentRound: 0, // Starts on first round
   currentPlayer: 0, // First player starts as current.
   // settings
-  secondsPerTurn: 1, // Invalid value to set, but I can still set it by default. You can't cage me!
+  secondsPerTurn: 5, // Invalid value to set, but I can still set it by default. You can't cage me!
   desiredPlayers: 4,
-  roundsPerGame: 1,
+  roundsPerGame: 2,
   players: [
     { name: 'First Player', words: [[]]},
     { name: 'Second Player', words: [[]]},
@@ -70,7 +73,7 @@ function gameStateReducer(state, action) {
       return {
         ...state,
         currentScreen: ScreenId.GAME,
-        currentHand: ['A'], // TODO: read a new hand here!
+        currentHand: Adagrams.drawLetters(),
         currentRound: 0,
         currentPlayer: 0,
         players: state.players.map(existingPlayer => ({
@@ -107,11 +110,11 @@ function advanceTurn(state) {
         currentScreen: ScreenId.WIN
       };
     } else {
-      // TODO: Update hand here.
       return {
         ...state,
         currentPlayer: 0,
         currentRound: nextRound,
+        currentHand: Adagrams.drawLetters(),
         // Add another round of words to each player.
         players: state.players.map(p => ({
           name: p.name,

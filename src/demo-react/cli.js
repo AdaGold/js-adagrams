@@ -1,9 +1,8 @@
 #!/usr/bin/env node
 
-const React = require('react');
-const importJsx = require('import-jsx');
-const { render } = require('ink');
+import React from 'react';
+import { render } from 'ink';
 
-const ui = importJsx('./ui');
+import ui from './ui';
 
 render(React.createElement(ui));

@@ -1,9 +1,8 @@
-const React = require('react');
-const { useContext, useMemo } = React;
+import React, { createContext, useContext, useMemo } from 'react';
 
-const { useGameReducer } = require('../gamestate/reducer');
+import { useGameReducer } from '../gamestate/reducer';
 
-const GameStateContext = React.createContext();
+const GameStateContext = createContext();
 
 function useGameStateContext() {
   return useContext(GameStateContext);

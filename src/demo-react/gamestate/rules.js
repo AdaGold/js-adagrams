@@ -1,12 +1,18 @@
 const Actions = require('./action-types');
 const { SetErrorAction } = require('./errors');
 
+import Adagrams from 'demo/adagrams';
+
 function validateGuessInput(wrappedReducer) {
   return (state, action) => {
     if (action.type === Actions.GUESS) {
       const word = action.payload;
       if (wordHasBeenGuessed(state, word)) {
         const errAction = new SetErrorAction(`${word} was already guessed!`);
+        return wrappedReducer(state, errAction);
+      }
+      if (!Adagrams.usesAvailableLetters(word, state.currentHand)) {
+        const errAction = new SetErrorAction(`${word} isn't valid!`);
         return wrappedReducer(state, errAction);
       }
     }

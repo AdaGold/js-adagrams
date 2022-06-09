@@ -8,6 +8,8 @@ const TextInput = require('ink-text-input').default;
 const basicAction = require('../gamestate/generic-action');
 const { GUESS } = require('../gamestate/action-types');
 
+import Adagrams from 'demo/adagrams';
+
 const importJsx = require('import-jsx');
 const GameTimer = importJsx('../components/timer');
 const { useGameStateContext } = importJsx('../components/gamestate-context');
@@ -78,7 +80,7 @@ function PlayerGuesses({ player, round, isActive }) {
       {
         player.words[round].map((wordInCurrentRound, idx) => 
           <Text key={wordInCurrentRound}>
-            {idx + 1}: { wordInCurrentRound }
+            {idx + 1}: { wordInCurrentRound } ({ Adagrams.scoreWord(wordInCurrentRound) })
           </Text>
         )
       }
