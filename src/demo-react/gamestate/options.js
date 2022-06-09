@@ -35,6 +35,10 @@ export function validateOptionsInput(wrappedReducer) {
       }
       case Actions.ADD_PLAYER: {
         const name = action.payload;
+        if (!name) {
+          return wrappedReducer(state, new SetErrorAction('Enter a name!'));
+        }
+
         if (state.players.find(p => p.name === name)) {
           return wrappedReducer(state, new SetErrorAction(
             `A player named ${name} already exists!`
