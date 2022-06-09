@@ -1,6 +1,6 @@
 import { useReducer } from 'react';
 
-import Actions from './action-types';
+import * as Actions from './action-types';
 import { errorMiddleware } from './errors';
 import { validateOptionsInput } from './options';
 import { validateGuessInput } from './rules';

@@ -5,7 +5,7 @@ import TextInput from 'ink-text-input';
 
 import { ScreenId, SwitchScreenAction } from '../gamestate/screens';
 import basicAction from "../gamestate/generic-action";
-import Actions from '../gamestate/action-types';
+import * as Actions from '../gamestate/action-types';
 import { useGameStateContext } from '../components/gamestate-context';
 
 export default function EnterPlayers() {

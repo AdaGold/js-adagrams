@@ -1,4 +1,4 @@
-import Actions from './action-types';
+import * as Actions from './action-types';
 import { SetErrorAction } from './errors';
 
 export function validateOptionsInput(wrappedReducer) {

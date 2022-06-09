@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { Text } from 'ink';
 
-import Actions from '../gamestate/action-types';
+import * as Actions from '../gamestate/action-types';
 
 import { useGameStateContext } from '../components/gamestate-context';
 

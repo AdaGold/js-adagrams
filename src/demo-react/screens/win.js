@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Box, Text } from 'ink';
 
-import Actions from '../gamestate/action-types';
+import * as Actions from '../gamestate/action-types';
 import { Menu, MenuEntry } from '../components/menu';
 import { useGameStateContext } from '../components/gamestate-context';
 

@@ -1,5 +1,5 @@
 import basicAction from './generic-action';
-import Actions from './action-types';
+import * as Actions from './action-types';
 
 export function timerMiddleware(wrappedReducer) {
   return (state, action) => {
