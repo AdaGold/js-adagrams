@@ -10,4 +10,12 @@ describe('Button rendering', () => {
   it('Renders correctly when selected', () => {
     expectRenderToMatchSnapshot(<Button isSelected={ true }>Selected</Button>);
   });
+
+  it('Renders correctly when given a color', () => {
+    expectRenderToMatchSnapshot(<Button color='red'>Selected</Button>);
+  });
+
+  it('Renders correctly when selected and given a color', () => {
+    expectRenderToMatchSnapshot(<Button isSelected={ true } color='red'>Selected</Button>);
+  });
 });
