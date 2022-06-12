@@ -58,7 +58,7 @@ function gameStateReducer(state, action) {
     case Actions.SET_DESIRED_PLAYERS:
       return { ...state, desiredPlayers: action.payload };
     case Actions.SET_TURN_SECONDS:
-      return { ...state, secondsPerTurn: action.payload };
+      return { ...state, secondsPerTurn: action.payload, gameTimer: action.payload };
     case Actions.ADD_PLAYER:
       const newPlayer = {
         name: action.payload,
