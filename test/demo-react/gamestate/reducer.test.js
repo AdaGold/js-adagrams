@@ -22,7 +22,22 @@ const mockPlayerList = [
   { name: 'Min Soo', words: [[], ['OLE']]},
   { name: 'Rupa', words: [['HELLO'], ['DROLL', 'ROLE']]},
   { name: 'Elliot', words: [['DROOL'], ['WHORL']]}
-]
+];
+
+const inGameState = {
+  currentScreen: ScreenId.GAME,
+  lastError: "", // The error set by the last action
+  // in-game props
+  gameTimer: 5, // seconds
+  currentHand: ["H", "E", "L", "O", "L", "W", "O", "R", "L", "D"],
+  currentRound: 0, // Starts on first round
+  currentPlayer: 0, // First player starts as current.
+  // settings
+  secondsPerTurn: 5, // Invalid value to set, but I can still set it by default. You can't cage me!
+  desiredPlayers: mockPlayerList.length,
+  roundsPerGame: 2,
+  players: mockPlayerList
+};
 
 
 describe('Game state reducer', () => {
@@ -216,6 +231,60 @@ describe('Game state reducer', () => {
       const actual = reducer(currentState, action);
 
       expect(actual).toEqual(expected);
+    });
+  });
+
+  describe('Timer ticks', () => {
+    test('Ticks at 2 or more, gameTimer decrements', () => {
+      const tickAction = makeAction(Actions.TICK);
+
+      const actual = reducer(inGameState, tickAction);
+
+      expect(actual).toEqual({
+        ...inGameState,
+        gameTimer: 4
+      });
+    });
+
+    test('Ticks at 1 or fewer, turn advances and gameTimer resets', () => {
+      const beforeNextTurnState = {
+        ...inGameState,
+        gameTimer: 1
+      };
+      const tickAction = makeAction(Actions.TICK);
+
+      const actual = reducer(beforeNextTurnState, tickAction);
+
+      expect(actual).toEqual({
+        ...inGameState,
+        currentPlayer: 1,
+        gameTimer: 5
+      });
+    });
+
+    test('Ticks at 1 or fewer, current player is last, round advances and gameTimer resets', () => {
+      const beforeNextTurnState = {
+        ...inGameState,
+        currentPlayer: inGameState.players.length - 1,
+        gameTimer: 1
+      };
+      const tickAction = makeAction(Actions.TICK);
+
+      const actual = reducer(beforeNextTurnState, tickAction);
+
+      // The reducer will automatically draw a new hand.
+      // For testing, just make sure the round, player, and timer are what is
+      // expected.)
+      expect(actual).toMatchObject({
+        currentPlayer: 0,
+        currentRound: 1,
+        gameTimer: 5
+      });
+
+      // Also check that the hand is different. The test mock is distinct from
+      // the stub, and it should be nearly impossible to randomly draw the
+      // previous hand.
+      expect(actual.currentHand).not.toEqual(beforeNextTurnState.currentHand);
     });
   });
 });
