@@ -1,10 +1,10 @@
-import basicAction from './generic-action';
-import * as Actions from './action-types';
+import makeAction from './generic-action';
+import { ADVANCE_TURN, TICK } from './action-types';
 
-export function timerMiddleware(wrappedReducer) {
+export function timerMiddleware(reducer) {
   return (state, action) => {
-    if (action.type !== Actions.TICK) {
-      return wrappedReducer(state, action);
+    if (action.type !== TICK) {
+      return reducer(state, action);
     }
 
     // On a tick, do the following:
@@ -16,12 +16,9 @@ export function timerMiddleware(wrappedReducer) {
         gameTimer: state.gameTimer - 1
       };
     } else {
-      const advanceTurnAction = basicAction(Actions.ADVANCE_TURN);
-      const turnAdvancedState = wrappedReducer(state, advanceTurnAction);
-      return {
-        ...turnAdvancedState,
-        gameTimer: state.secondsPerTurn
-      }
+      // Advance the turn and reset the game timer.
+      const turnAdvancedState = reducer(state, makeAction(ADVANCE_TURN));
+      return { ...turnAdvancedState, gameTimer: state.secondsPerTurn }
     }
   }
 }
