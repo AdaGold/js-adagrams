@@ -10,6 +10,7 @@ export default function NumberField({
 }) {
   const [tempInput, setTempInput] = useState('');
 
+  // BUG: Backspace not support
   useInput((input, key) => {
     // Allow input that is all digits.
     if (/^[0-9]+$/.test(input)) {

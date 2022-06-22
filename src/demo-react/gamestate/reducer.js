@@ -20,7 +20,7 @@ const initialState_real = {
   currentRound: 0, // Starts on first round
   currentPlayer: 0, // First player starts as current.
   // settings
-  secondsPerTurn: 15,
+  secondsPerTurn: 25,
   desiredPlayers: 2,
   roundsPerGame: 3,
   players: [], // No players known initially.
@@ -49,6 +49,8 @@ const initialState_straighttoGame = {
 
 export const initialState = GO_STRAIGHT_TO_GAME ? initialState_straighttoGame : initialState_real;
 
+// TODO: We need a break in between turns!
+// TODO: How could we deal with the first player getting more time to think?
 function gameStateReducer(state, action) {
   switch (action.type) {
     case Actions.SWITCH_SCREEN:

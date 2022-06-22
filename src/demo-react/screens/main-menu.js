@@ -14,7 +14,7 @@ export default function MainMenu({ log, onHelpSelected, onStartSelected }) {
   ];
 
   const handleSelection = (selectionId) => {
-    log(`MainMenu: Received '${selectionId}'.`);
+    log(`MainMenu: Received '${selectionId}'.`); // TODO: Remove error log; it's unnecessary
     switch(selectionId) {
       case 'quit': exit(); break;
       case 'help': onHelpSelected(); break;
