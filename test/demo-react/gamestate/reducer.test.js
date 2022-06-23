@@ -30,10 +30,10 @@ const inGameState = {
   // in-game props
   gameTimer: 5, // seconds
   currentHand: ["H", "E", "L", "O", "L", "W", "O", "R", "L", "D"],
-  currentRound: 0, // Starts on first round
-  currentPlayer: 0, // First player starts as current.
+  currentRound: 1, // We're on the second round
+  currentPlayer: 3, // The last player is guessing.
   // settings
-  secondsPerTurn: 5, // Invalid value to set, but I can still set it by default. You can't cage me!
+  secondsPerTurn: 60,
   desiredPlayers: mockPlayerList.length,
   roundsPerGame: 2,
   players: mockPlayerList
@@ -249,6 +249,7 @@ describe('Game state reducer', () => {
     test('Ticks at 1 or fewer, turn advances and gameTimer resets', () => {
       const beforeNextTurnState = {
         ...inGameState,
+        currentPlayer: 0,
         gameTimer: 1
       };
       const tickAction = makeAction(Actions.TICK);
@@ -258,14 +259,33 @@ describe('Game state reducer', () => {
       expect(actual).toEqual({
         ...inGameState,
         currentPlayer: 1,
-        gameTimer: 5
+        gameTimer: inGameState.secondsPerTurn
       });
+    });
+
+    test('Ticks at 1 or fewer, no players, only game timer resets', () => {
+      const beforeNextTurnState = {
+        ...inGameState,
+        currentPlayer: 0,
+        gameTimer: 1,
+        players: []
+      };
+      const tickAction = makeAction(Actions.TICK);
+      const expectedState = {
+        ...beforeNextTurnState,
+        gameTimer: inGameState.secondsPerTurn
+      };
+
+      const actual = reducer(beforeNextTurnState, tickAction);
+
+      expect(actual).toEqual(expectedState);
     });
 
     test('Ticks at 1 or fewer, current player is last, round advances and gameTimer resets', () => {
       const beforeNextTurnState = {
         ...inGameState,
         currentPlayer: inGameState.players.length - 1,
+        currentRound: 0,
         gameTimer: 1
       };
       const tickAction = makeAction(Actions.TICK);
@@ -278,7 +298,7 @@ describe('Game state reducer', () => {
       expect(actual).toMatchObject({
         currentPlayer: 0,
         currentRound: 1,
-        gameTimer: 5
+        gameTimer: inGameState.secondsPerTurn
       });
 
       // Also check that the hand is different. The test mock is distinct from
@@ -286,5 +306,116 @@ describe('Game state reducer', () => {
       // previous hand.
       expect(actual.currentHand).not.toEqual(beforeNextTurnState.currentHand);
     });
+
+    test('Ticks at 1 or fewer, last round, last player, game moves to WIN screen', () => {
+      const beforeNextTurnState = {
+        ...inGameState,
+        currentPlayer: 3,
+        currentRound: inGameState.roundsPerGame,
+        gameTimer: 1
+      };
+      const tickAction = makeAction(Actions.TICK);
+      const expectedState = {
+        ...beforeNextTurnState,
+        currentScreen: ScreenId.WIN,
+        gameTimer: 60
+      };
+
+      const actual = reducer(beforeNextTurnState, tickAction);
+
+      expect(actual).toEqual(expectedState);
+    });
   });
+
+  describe('Word guessing', () => {
+    const deepCopyPlayerList = () => {
+      return mockPlayerList.map(player => ({ ...player, words: player.words.map(roundList => [ ...roundList ]) }));
+    }
+
+    test('Guessing a word guesses the word for the current player', () => {
+      const guessWhole = makeAction(Actions.GUESS, 'WHOLE');
+      const playerListCopy = deepCopyPlayerList();
+      playerListCopy[inGameState.currentPlayer].words[inGameState.currentRound].push('WHOLE');
+      const expectedState = { ...inGameState, players: playerListCopy };
+
+      const actualState = reducer(inGameState, guessWhole);
+
+      expect(expectedState).toEqual(actualState);
+    });
+
+    test('Guessing a lower-case word guesses the uppercase word', () => {
+      const guessWhole = makeAction(Actions.GUESS, 'whole');
+      const playerListCopy = deepCopyPlayerList();
+      playerListCopy[inGameState.currentPlayer].words[inGameState.currentRound].push('WHOLE');
+      const expectedState = { ...inGameState, players: playerListCopy };
+
+      const actualState = reducer(inGameState, guessWhole);
+
+      expect(expectedState).toEqual(actualState);
+    });
+
+    test('Guessing an invalid word sets an error about the word being invalid', () => {
+      const guessHippo = makeAction(Actions.GUESS, 'HIPPO');
+      const expectedState = { ...inGameState,
+        lastError: "HIPPO isn't valid!"
+      };
+
+      const actualState = reducer(inGameState, guessHippo);
+
+      expect(expectedState).toEqual(actualState);
+    });
+
+    test('Guessing a word used this round sets an error about duplicate guesses', () => {
+      const guessWorld = makeAction(Actions.GUESS, 'WORLD');
+      const expectedState = { ...inGameState,
+        lastError: "WORLD was already guessed!"
+      };
+
+      const actualState = reducer(inGameState, guessWorld);
+
+      expect(expectedState).toEqual(actualState);
+    });
+
+    test('Guessing a word used in a previous round does NOT set an error about duplicate guesses', () => {
+      const guessHello = makeAction(Actions.GUESS, 'HELLO');
+      const playerListCopy = deepCopyPlayerList();
+      playerListCopy[inGameState.currentPlayer].words[inGameState.currentRound].push('HELLO');
+      const expectedState = { ...inGameState, players: playerListCopy };
+
+      const actualState = reducer(inGameState, guessHello);
+
+      expect(expectedState).toEqual(actualState);
+    });
+
+    test('Guessing an empty word sets an error about a guess being required', () => {
+      const guessEmptyWord = makeAction(Actions.GUESS, '');
+      const expectedState = { ...inGameState,
+        lastError: "Enter a word!"
+      };
+
+      const actualState = reducer(inGameState, guessEmptyWord);
+
+      expect(expectedState).toEqual(actualState);
+    });
+  });
+
+  describe('Rematch', () => {
+    test('Invoking a rematch resets the game with the same parameters', () => {
+      const guessWhole = makeAction(Actions.REMATCH);
+      const resetPlayerList = mockPlayerList.map(player => ({ ...player, words: [[]] }));
+      const expectedState = { ...inGameState,
+        players: resetPlayerList,
+        currentPlayer: 0,
+        currentRound: 0
+      };
+
+      const actualState = reducer(inGameState, guessWhole);
+
+      // Ignore currentHand.
+      delete expectedState.currentHand;
+      delete actualState.currentHand;
+
+      expect(expectedState).toMatchObject(actualState);
+    })
+  })
 });
