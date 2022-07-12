@@ -19,6 +19,7 @@ export default function Win() {
 
   const scores = new WinScreenInfo(state);
   const playerScores = scores.playerScores;
+  const roundWinners = scores.roundWinners;
   const winningScore = scores.getWinningScore();
   const winner = scores.getWinner();
 
@@ -67,7 +68,10 @@ export default function Win() {
         <Box
           flexDirection='column'
         >
-          <Text color='blueBright'>TODO: Round scores go here</Text>
+          <Box marginBottom='1'><Text color='blueBright'>Round Winners:</Text></Box>
+          {
+            roundWinners.map((p, i) => <Text key={ p.name } color='gray'>Round { i + 1 }: <Text color='blueBright'>{ p.name } ({ p.score })</Text></Text>)
+          }
         </Box>
       </Box>
      
