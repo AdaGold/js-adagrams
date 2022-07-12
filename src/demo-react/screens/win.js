@@ -70,7 +70,7 @@ export default function Win() {
         >
           <Box marginBottom='1'><Text color='blueBright'>Round Winners:</Text></Box>
           {
-            roundWinners.map((p, i) => <Text key={ p.name } color='gray'>Round { i + 1 }: <Text color='blueBright'>{ p.name } ({ p.score })</Text></Text>)
+            roundWinners.map((p, i) => <Text key={ p.name + i } color='gray'>Round { i + 1 }: <Text color='blueBright'>{ p.name } ({ p.score })</Text></Text>)
           }
         </Box>
       </Box>
