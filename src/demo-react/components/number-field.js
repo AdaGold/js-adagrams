@@ -21,15 +21,16 @@ export default function NumberField({
     }
 
     if (key.return) {
+      let stateToCommit = '';
+
       setTempInput(curr => {
-        if (curr !== '') {
-          // It's a little sketchy to dispatch this action as a side effect
-          // of resetting the temp input, but it does let us memoize this
-          // useInput handler. 
-          dispatch(action(actionType, Number(curr)));
-        }
+        stateToCommit = curr;
         return '';
       });
+      
+      if (stateToCommit) {
+        dispatch(action(actionType, Number(stateToCommit)));
+      }
     }
   }, [setTempInput, dispatch, actionType]);
 
