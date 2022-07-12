@@ -1,6 +1,5 @@
 import React from 'react';
 
-import { SetErrorAction } from '../gamestate/errors';
 import {
   SwitchScreenAction,
   ScreenId,
@@ -22,11 +21,9 @@ export default function ScreenDisplayer() {
 
   const showHowTo = () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO));
   const showSetupGame = () => dispatch(new SwitchScreenAction(ScreenId.SETUP));
-  const log = (msg) => dispatch(new SetErrorAction(msg));
 
   let screen = (
     <MainMenu
-      log={ log }
       onHelpSelected={ showHowTo }
       onStartSelected={ showSetupGame }
     />

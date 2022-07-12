@@ -5,7 +5,7 @@ import { Box, useApp } from 'ink';
 
 import { Menu, MenuEntry } from '../components/menu';
 
-export default function MainMenu({ log, onHelpSelected, onStartSelected }) {
+export default function MainMenu({ onHelpSelected, onStartSelected }) {
   const { exit } = useApp();
   const mainMenu = [
     MenuEntry('Start New Game', 'start'),
@@ -14,7 +14,6 @@ export default function MainMenu({ log, onHelpSelected, onStartSelected }) {
   ];
 
   const handleSelection = (selectionId) => {
-    log(`MainMenu: Received '${selectionId}'.`); // TODO: Remove error log; it's unnecessary
     switch(selectionId) {
       case 'quit': exit(); break;
       case 'help': onHelpSelected(); break;
@@ -36,7 +35,6 @@ export default function MainMenu({ log, onHelpSelected, onStartSelected }) {
 }
 
 MainMenu.propTypes = {
-  log: PropTypes.func,
   onHelpSelected: PropTypes.func.isRequired,
   onStartSelected: PropTypes.func.isRequired
 }
