@@ -2,11 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Menu, MenuEntry } from '../components/menu';
+import { useGameStateContext } from '../components/gamestate-context';
+import { SwitchScreenAction, ScreenId } from '../gamestate/screens';
 
 import { Text, Box, Newline } from 'ink';
 
-export default function HowTo({ showMainMenu }) {
-  const oneButtonMenu = [ MenuEntry('Go Back', 'goback') ];
+export default function HowTo() {
+  const { dispatch } = useGameStateContext();
+ 
+  const oneButtonMenu = [
+    MenuEntry(
+      'Go Back',
+      () => dispatch(
+        new SwitchScreenAction(ScreenId.MAIN_MENU)
+      )
+    )
+  ];
 
   return (
     <Box
@@ -28,11 +39,7 @@ export default function HowTo({ showMainMenu }) {
       </Text>
       <Text>Whoever has the highest scoring words across all rounds wins the game!</Text>
       <Newline />
-      <Menu width='100%' items={ oneButtonMenu } onItemSelected={ showMainMenu } />
+      <Menu width='100%' items={ oneButtonMenu } />
     </Box>
   )
 };
-
-HowTo.propTypes = {
-  showMainMenu: PropTypes.func.isRequired
-}

@@ -6,23 +6,23 @@ import { Box, useInput } from 'ink';
 
 import Button from './button';
 
-export const MenuEntry = (title, selectionId, color) => ({
+export const MenuEntry = (title, onItemSelected, color) => ({
   color,
   title,
-  selectionId
+  onItemSelected
 });
 
 MenuEntry.propTypes = PropTypes.shape({
   title: PropTypes.string,
-  selecitonId: PropTypes.string,
+  onItemSelected: PropTypes.func,
   color: PropTypes.string
 });
 
-export const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }) => {
+export const Menu = ({ isActive, items, onFocusPrevious, width }) => {
   const menu = items;
   const [selectedIdx, setSelectedIdx] = useState(0);
 
-  const inputHandler = (input, key) => {
+  const inputHandler = (_, key) => {
     if (key.upArrow || key.leftArrow || (key.shift && key.tab)) {
       setSelectedIdx(Math.max(0, selectedIdx - 1));
       if (selectedIdx - 1 < 0) {
@@ -31,12 +31,8 @@ export const Menu = ({ isActive, items, onFocusPrevious, onItemSelected, width }
     } else if (key.downArrow || key.rightArrow || (key.tab)) {
       setSelectedIdx(Math.min(menu.length - 1, selectedIdx + 1));
     } else if (key.return) {
-      const selectedItemId = menu[selectedIdx].selectionId;
-      if (typeof selectedItemId === 'function') {
-        selectedItemId();
-      } else {
-        onItemSelected(selectedItemId);
-      }
+      const onItemSelected = menu[selectedIdx].onItemSelected;
+      onItemSelected();
     }
 
   };
@@ -74,6 +70,5 @@ Menu.propTypes = {
 
 Menu.defaultProps = {
   isActive: true,
-  onFocusPrevious: () => {},
-  onItemSelected: () => {}
+  onFocusPrevious: () => {}
 }

@@ -1,11 +1,6 @@
 import React from 'react';
 
-import {
-  SwitchScreenAction,
-  ScreenId,
-  onHelpScreen,
-  onSetupScreen
-} from '../gamestate/screens';
+import { ScreenId } from '../gamestate/screens';
 
 import HowTo from './how-to';
 import MainMenu from './main-menu';
@@ -17,25 +12,13 @@ import { useGameStateContext } from '../components/gamestate-context';
 import ErrorViewer from '../components/error-viewer';
 
 export default function ScreenDisplayer() {
-  const { state, dispatch } = useGameStateContext();
+  const { state } = useGameStateContext();
 
-  const showHowTo = () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO));
-  const showSetupGame = () => dispatch(new SwitchScreenAction(ScreenId.SETUP));
+  let screen = <MainMenu />;
 
-  let screen = (
-    <MainMenu
-      onHelpSelected={ showHowTo }
-      onStartSelected={ showSetupGame }
-    />
-  );
-
-  if (onHelpScreen(state)) {
-    const showMainMenu = () => dispatch(
-      new SwitchScreenAction(ScreenId.MAIN_MENU)
-    );
-
-    screen = <HowTo showMainMenu={ showMainMenu } />;
-  } else if (onSetupScreen(state)) {
+  if (state.currentScreen === ScreenId.HOW_TO) {
+    screen = <HowTo />;
+  } else if (state.currentScreen === ScreenId.SETUP) {
     screen = <SetupGame />;
   } else if (state.currentScreen === ScreenId.ENTER_PLAYERS) {
     screen = <EnterPlayers />;

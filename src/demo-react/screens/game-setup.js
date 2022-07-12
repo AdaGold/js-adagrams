@@ -32,21 +32,10 @@ export default function SetupGame() {
     setSelectedField(fields[idxMenu - 1]);
   }
 
-  // TODO: MenuEntry could use a callback instead of this selection ID concept.
   const menu = [
-    MenuEntry('Enter Names', 'names'),
-    MenuEntry('Go Back', 'go-back')
-  ]
-  const handleSelection = (selectionId) => {
-    switch(selectionId) {
-      case 'names':
-        dispatch(new SwitchScreenAction(ScreenId.ENTER_PLAYERS));
-        break;
-      case 'go-back':
-        dispatch(new SwitchScreenAction(ScreenId.MAIN_MENU));
-        break;
-    }
-  }
+    MenuEntry('Enter Names', () => dispatch(new SwitchScreenAction(ScreenId.ENTER_PLAYERS))),
+    MenuEntry('Go Back', () => dispatch(new SwitchScreenAction(ScreenId.MAIN_MENU)))
+  ];
 
   return (
     <Box
@@ -86,7 +75,6 @@ export default function SetupGame() {
           Seconds per player per round (10-60)
         </NumberField>
         <Menu
-          onItemSelected={ handleSelection }
           onFocusPrevious={ selectFieldBeforeMenu }
           items={ menu }
           isActive={ selectedField === 'menu' }

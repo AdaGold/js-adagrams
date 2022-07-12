@@ -3,23 +3,19 @@ import PropTypes from 'prop-types';
 
 import { Box, useApp } from 'ink';
 
+import { useGameStateContext } from '../components/gamestate-context';
 import { Menu, MenuEntry } from '../components/menu';
+import { SwitchScreenAction, ScreenId } from '../gamestate/screens';
 
-export default function MainMenu({ onHelpSelected, onStartSelected }) {
+export default function MainMenu() {
   const { exit } = useApp();
-  const mainMenu = [
-    MenuEntry('Start New Game', 'start'),
-    MenuEntry('How to Play', 'help'),
-    MenuEntry('Quit', 'quit', 'red')
-  ];
+  const { dispatch } = useGameStateContext();
 
-  const handleSelection = (selectionId) => {
-    switch(selectionId) {
-      case 'quit': exit(); break;
-      case 'help': onHelpSelected(); break;
-      case 'start': onStartSelected(); break;
-    }
-  }
+  const mainMenu = [
+    MenuEntry('Start New Game', () => dispatch(new SwitchScreenAction(ScreenId.SETUP))),
+    MenuEntry('How to Play', () => dispatch(new SwitchScreenAction(ScreenId.HOW_TO))),
+    MenuEntry('Quit', exit, 'red')
+  ];
 
   return (
     <Box
@@ -29,12 +25,7 @@ export default function MainMenu({ onHelpSelected, onStartSelected }) {
       borderStyle='single'
       paddingY='2'
     >
-      <Menu onItemSelected={ handleSelection } items={ mainMenu } />
+      <Menu items={ mainMenu } />
     </Box>
   );
-}
-
-MainMenu.propTypes = {
-  onHelpSelected: PropTypes.func.isRequired,
-  onStartSelected: PropTypes.func.isRequired
 }
