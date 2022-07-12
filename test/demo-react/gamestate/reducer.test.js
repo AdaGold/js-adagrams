@@ -3,6 +3,17 @@ import * as Actions from 'demo-react/gamestate/action-types';
 import makeAction from 'demo-react/gamestate/generic-action';
 import { ScreenId } from 'demo-react/gamestate/screens';
 
+import Adagrams from 'demo/adagrams';
+
+jest.mock('demo/adagrams', () => {
+  return {
+    drawLetters: jest.fn(() => ["H", "E", "L", "L", "O", "W", "O", "R", "L", "D"]),
+    usesAvailableLetters: jest.fn(() => true),
+    scoreWord: jest.fn(),
+    highestScoreFrom: jest.fn(),
+  };
+});
+
 // Some actions merely replace the value of a specific state key with the
 // action payload. This is a generic function to test those states.
 function assertSimpleActionUpdatesKey(actionType, keyName, value = 'any-value') {
@@ -340,7 +351,7 @@ describe('Game state reducer', () => {
 
       const actualState = reducer(inGameState, guessWhole);
 
-      expect(expectedState).toEqual(actualState);
+      expect(actualState).toEqual(expectedState);
     });
 
     test('Guessing a lower-case word guesses the uppercase word', () => {
@@ -351,10 +362,11 @@ describe('Game state reducer', () => {
 
       const actualState = reducer(inGameState, guessWhole);
 
-      expect(expectedState).toEqual(actualState);
+      expect(actualState).toEqual(expectedState);
     });
 
     test('Guessing an invalid word sets an error about the word being invalid', () => {
+      Adagrams.usesAvailableLetters.mockReturnValueOnce(false);
       const guessHippo = makeAction(Actions.GUESS, 'HIPPO');
       const expectedState = { ...inGameState,
         lastError: "HIPPO isn't valid!"
@@ -362,7 +374,7 @@ describe('Game state reducer', () => {
 
       const actualState = reducer(inGameState, guessHippo);
 
-      expect(expectedState).toEqual(actualState);
+      expect(actualState).toEqual(expectedState);
     });
 
     test('Guessing a word used this round sets an error about duplicate guesses', () => {
@@ -373,7 +385,7 @@ describe('Game state reducer', () => {
 
       const actualState = reducer(inGameState, guessWorld);
 
-      expect(expectedState).toEqual(actualState);
+      expect(actualState).toEqual(expectedState);
     });
 
     test('Guessing a word used in a previous round does NOT set an error about duplicate guesses', () => {
@@ -384,7 +396,7 @@ describe('Game state reducer', () => {
 
       const actualState = reducer(inGameState, guessHello);
 
-      expect(expectedState).toEqual(actualState);
+      expect(actualState).toEqual(expectedState);
     });
 
     test('Guessing an empty word sets an error about a guess being required', () => {
@@ -395,7 +407,7 @@ describe('Game state reducer', () => {
 
       const actualState = reducer(inGameState, guessEmptyWord);
 
-      expect(expectedState).toEqual(actualState);
+      expect(actualState).toEqual(expectedState);
     });
   });
 
@@ -415,7 +427,7 @@ describe('Game state reducer', () => {
       delete expectedState.currentHand;
       delete actualState.currentHand;
 
-      expect(expectedState).toMatchObject(actualState);
+      expect(actualState).toMatchObject(expectedState);
     })
   })
 });
