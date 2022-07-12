@@ -9,7 +9,7 @@ import { timerMiddleware } from './timer';
 
 import Adagrams from 'demo/adagrams';
 
-const GO_STRAIGHT_TO_GAME = false;
+const GO_STRAIGHT_TO_WIN = false;
 
 const initialState_real = {
   currentScreen: ScreenId.MAIN_MENU,
@@ -26,9 +26,9 @@ const initialState_real = {
   players: [], // No players known initially.
 };
 
-// For debugging, this goes straight to the game screen:
-const initialState_straighttoGame = {
-  currentScreen: ScreenId.GAME,
+// For debugging, this goes straight to the win screen:
+const initialState_straighttoWin = {
+  currentScreen: ScreenId.WIN,
   lastError: "", // The error set by the last action
   // in-game props
   gameTimer: 5, // seconds
@@ -40,14 +40,14 @@ const initialState_straighttoGame = {
   desiredPlayers: 4,
   roundsPerGame: 2,
   players: [
-    { name: 'First Player', words: [[]]},
-    { name: 'Second Player', words: [[]]},
-    { name: 'Third Player', words: [[]]},
-    { name: 'Fourth Player', words: [[]]}
+    { name: 'Max', words: [['HELL', 'LOW'], ['WORLD']]},
+    { name: 'Min Soo Jung', words: [[], ['OLE']]},
+    { name: 'Alexandria', words: [['HELLO'], ['DROLE', 'ROLE']]},
+    { name: 'Jacqueline', words: [['DROOL'], ['ROWL']]}
   ],
 };
 
-export const initialState = GO_STRAIGHT_TO_GAME ? initialState_straighttoGame : initialState_real;
+export const initialState = GO_STRAIGHT_TO_WIN ? initialState_straighttoWin : initialState_real;
 
 // TODO: We need a break in between turns!
 // TODO: How could we deal with the first player getting more time to think?
