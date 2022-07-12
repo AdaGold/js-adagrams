@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { Box, Text, useInput } from 'ink';
@@ -10,20 +10,30 @@ export default function NumberField({
 }) {
   const [tempInput, setTempInput] = useState('');
 
-  // BUG: Backspace not support
-  useInput((input, key) => {
+  const inputHandler = useCallback((input, key) => {
     // Allow input that is all digits.
     if (/^[0-9]+$/.test(input)) {
-      setTempInput(tempInput + input);
+      setTempInput(curr => curr + input);
+    }
+
+    if ((key.delete && !key.meta) || key.backspace) {
+      setTempInput(curr => curr.slice(0, -1));
     }
 
     if (key.return) {
-      if (tempInput !== '') {
-        dispatch(action(actionType, Number(tempInput)));
-      }
-      setTempInput('');
+      setTempInput(curr => {
+        if (curr !== '') {
+          // It's a little sketchy to dispatch this action as a side effect
+          // of resetting the temp input, but it does let us memoize this
+          // useInput handler. 
+          dispatch(action(actionType, Number(curr)));
+        }
+        return '';
+      });
     }
-  }, { isActive });
+  }, [setTempInput, dispatch, actionType]);
+
+  useInput(inputHandler, { isActive });
 
   return (
     <Box flexDirection='row' marginY={ 1 }>
