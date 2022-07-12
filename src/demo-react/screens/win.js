@@ -3,6 +3,7 @@ import React from 'react';
 import { Box, Newline, Text, useApp } from 'ink';
 
 import * as Actions from '../gamestate/action-types';
+import { WinScreenInfo } from '../gamestate/win-selectors';
 import { Menu, MenuEntry } from '../components/menu';
 import { useGameStateContext } from '../components/gamestate-context';
 import Adagrams from 'demo/adagrams';
@@ -16,22 +17,10 @@ export default function Win() {
     MenuEntry('Quit', exit, 'red')
   ];
 
-  const playerScores = state.players.map(
-    player => { 
-      const flattenedWords = [].concat(...player.words);
-      const scores = flattenedWords.map(word => ({ word, score: Adagrams.scoreWord(word)}));
-      scores.sort((a, b) => b.score - a.score); // Sort by highest scoring word.
-      const totalScore = scores.reduce((sum, scoreAndWord) => sum + scoreAndWord.score, 0);
-      return {
-        name: player.name,
-        score: totalScore,
-        bestWord: scores.length > 0 && `${scores[0].word} (${scores[0].score})` || ''
-      };
-    }
-  );
-  playerScores.sort((a, b) => b.score - a.score);
-  const winningScore = playerScores[0].score;
-  const winner = playerScores[0].name;
+  const scores = new WinScreenInfo(state);
+  const playerScores = scores.playerScores;
+  const winningScore = scores.getWinningScore();
+  const winner = scores.getWinner();
 
   return (
     <Box
