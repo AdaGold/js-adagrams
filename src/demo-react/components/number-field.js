@@ -35,6 +35,10 @@ export default function NumberField({
   )
 }
 
+NumberField.defaultProps = {
+  isActive: false
+};
+
 NumberField.propTypes = {
   actionType: PropTypes.string,
   children: PropTypes.node,

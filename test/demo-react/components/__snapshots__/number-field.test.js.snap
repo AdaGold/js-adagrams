@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumberField renders correctly 1`] = `
+"
+  5                                                                             Description of Field
+"
+`;
+
+exports[`NumberField renders correctly when active 1`] = `
+"
+  [7m5[27m                                                                             Description of Field
+"
+`;
