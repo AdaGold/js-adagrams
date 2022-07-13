@@ -1,7 +1,7 @@
 import * as Actions from './action-types';
 import { SetErrorAction } from './errors';
 
-import Adagrams from 'demo/adagrams';
+import Adagrams from 'demo-react/adagrams';
 
 export function validateGuessInput(wrappedReducer) {
   return (state, action) => {

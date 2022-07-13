@@ -1,4 +1,4 @@
-import Adagrams from 'demo/adagrams';
+import Adagrams from 'demo-react/adagrams';
 
 export class WinScreenInfo {
   constructor(state) {

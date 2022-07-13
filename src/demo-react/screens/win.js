@@ -6,7 +6,6 @@ import * as Actions from '../gamestate/action-types';
 import { WinScreenInfo } from '../gamestate/win-selectors';
 import { Menu, MenuEntry } from '../components/menu';
 import { useGameStateContext } from '../components/gamestate-context';
-import Adagrams from 'demo/adagrams';
 
 export default function Win() {
   const { state, dispatch } = useGameStateContext();
