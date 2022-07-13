@@ -5,4 +5,4 @@ import { render } from 'ink';
 
 import App from './app';
 
-render(React.createElement(App));
+render(<App />);
