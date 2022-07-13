@@ -3,6 +3,6 @@
 import React from 'react';
 import { render } from 'ink';
 
-import ui from './ui';
+import App from './app';
 
-render(React.createElement(ui));
+render(React.createElement(App));

@@ -1,5 +1,5 @@
 import React from 'react';
-import App from 'demo-react/ui';
+import App from 'demo-react/app';
 import { render } from 'ink-testing-library';
 import { expectRenderToMatchSnapshot } from './expect-render';
 
