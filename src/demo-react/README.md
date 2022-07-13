@@ -1,0 +1,21 @@
+# React Demo Game
+
+The demo game is present to help you test your [Adagrams implementation](../adagrams.js). At its core, the demo game is a bunch of UI that is built around the Adagrams API, which consists of the four methods `drawLetters`, `usesAvailableLetters`, `scoreWord`, and `highestScoreFrom`.
+
+As a result, when you first start the demo game, before you've implemented any of the Waves, the demo game won't function correctly! Specifically, it starts off thinking that every hand of letters is `["H", "E", "L", "L", "O", "W", "O", "R", "L", "D"]`, that any word at all "uses" those letters, and that everything is worth 0 points. As you implement the Adagrams functions (and pass its tests), you make it so the demo game functions correctly.
+
+## The Proxy Pattern
+
+The way the demo game functions without your implementation is by applying the [Proxy Pattern](https://en.wikipedia.org/wiki/Proxy_pattern) to the methods of your [adagrams.js](../adagrams.js). The Proxy in this case is an object defined in [adagrams-proxy.js](./adagrams-proxy.js). This proxy object implements the same "interface" as your real Adagrams -- that is, it defines the same four functions, with the same names, parameters, and return types -- and provides default behavior for any cases where the real Adagrams returns `undefined` -- that's the default return value for any JavaScript function. When you start implementing your Adagrams, and the functions stop returning `undefined`, the Proxy automatically switches to using your implementation for the function instead of its default behavior.
+
+The traditional definition of the Proxy Pattern explains that two "concrete" classes will inherit from an "interface". In other languages besides JavaScript, an interface is a way to explicitly specify the names, parameters, and return values of a class's methods without providing any implementation for them. An interface is usually described as a "contract" that code in a function expects an instance object of a class that implements the interface to fulfill. JavaScript doesn't have a way to explicitly define an interface in code; you call a method, and deal with whatever the result is. (A return value of `undefined` or a runtime error might be that result!) So when we implement the Proxy Pattern in JavaScript, our Proxy object fulfills the "implicit" interface for our real object. In this case, we know what the interface is because there are tests, other functions outside the module, and documents describing it. The Proxy and Real Adagrams objects implement the same "implicit" interface because they satisfy the expectations of the code that uses them. If the idea of an implicit interface makes you feel uncomfortable, then you might like TypeScript.
+
+## How is the game structured?
+The demo game is built with a framework called [Ink](https://github.com/vadimdemedes/ink#readme), which makes it so you can develop terminal applications using [React](https://reactjs.org/). This means you will find React concepts -- props, state, jsx, etc. -- used throughout the demo game code.
+
+- [components/](./components/): React components that can be reused. This includes simple display-only components like [Button](./components/button.js), complex input-handling components like [NumberField](./components/number-field.js), and more-esoteric components such as the context-providing [GameStateStore](./components/gamestate-context.js).
+- [gamestate/](./gamestate/): Reducers, actions, and "middleware", following patterns that are like redux but implemented with [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer).
+- [screens/](./screens/): React components that represent the various "screens" that players move through during the game. The [ScreenDisplayer](./screens/index.js) chooses the screen based on the current state.
+
+## History
+This is not the first incarnation of the JS Adagrams demo game! An [Architectural Decision Record](./docs/adr.md) describes the latest iteration as well as reasoning behind its development.
