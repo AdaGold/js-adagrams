@@ -36,7 +36,7 @@ const Stub = {
       return Real.scoreWord(word);
     }
 
-    return -1;
+    return 1;
   },
 
   highestScoreFrom(words) {
