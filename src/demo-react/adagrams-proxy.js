@@ -12,7 +12,7 @@ const Real = {
   highestScoreFrom,
 };
 
-const Stub = {
+const Proxy = {
   drawLetters() {
     const defaultLetters = ["H", "E", "L", "L", "O", "W", "O", "R", "L", "D"];
 
@@ -48,9 +48,9 @@ const Stub = {
 
     return {
       word: words[0],
-      score: Stub.scoreWord(words[0]),
+      score: Proxy.scoreWord(words[0]),
     };
   },
 };
 
-export default Stub;
+export default Proxy;
