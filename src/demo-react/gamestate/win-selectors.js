@@ -1,6 +1,9 @@
-import Adagrams from 'demo-react/adagrams';
+import Adagrams from 'demo-react/adagrams-proxy';
 
 export class WinScreenInfo {
+  playerScores;
+  roundWinners;
+
   constructor(state) {
     this.playerScores = state.players.map(
       player => { 

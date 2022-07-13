@@ -14,42 +14,46 @@ const Real = {
 
 const Proxy = {
   drawLetters() {
-    const defaultLetters = ["H", "E", "L", "L", "O", "W", "O", "R", "L", "D"];
-
-    if (typeof Real.drawLetters === "function") {
-      return Real.drawLetters() || defaultLetters;
+    const real = Real.drawLetters();
+    if (typeof real === 'undefined') {
+      return ["H", "E", "L", "L", "O", "W", "O", "R", "L", "D"];
     }
 
-    return defaultLetters;
+    return real;
   },
 
   usesAvailableLetters(input, lettersInHand) {
-    if (typeof Real.usesAvailableLetters === "function") {
-      return Real.usesAvailableLetters(input, lettersInHand);
+    const real = Real.usesAvailableLetters(input, lettersInHand);
+    if (typeof real === 'undefined') {
+      return true;
     }
 
-    return true;
+    return real;
   },
 
   scoreWord(word) {
-    if (typeof Real.scoreWord === "function") {
-      return Real.scoreWord(word);
+    const real = Real.scoreWord(word);
+    if (typeof real === 'undefined') {
+      return 1;
     }
 
-    return 1;
+    return real;
   },
 
   highestScoreFrom(words) {
-    if (typeof Real.highestScoreFrom === "function") {
-      return Real.highestScoreFrom(words);
+    const real = Real.highestScoreFrom(words);
+    if (typeof real === 'undefined') {
+      if (words.length < 1) {
+        return {};
+      }
+
+      return {
+        word: words[0],
+        score: Proxy.scoreWord(words[0]),
+      };
     }
 
-    if (words.length < 1) return null;
-
-    return {
-      word: words[0],
-      score: Proxy.scoreWord(words[0]),
-    };
+    return real;
   },
 };
 

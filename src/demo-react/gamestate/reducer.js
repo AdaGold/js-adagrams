@@ -7,7 +7,7 @@ import { validateGuessInput } from './rules';
 import { ScreenId } from './screens';
 import { timerMiddleware } from './timer';
 
-import Adagrams from 'demo-react/adagrams';
+import Adagrams from 'demo-react/adagrams-proxy';
 
 const GO_STRAIGHT_TO_WIN = false;
 

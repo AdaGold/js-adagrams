@@ -9,7 +9,7 @@ import { GUESS } from '../gamestate/action-types';
 import GameTimer from '../components/timer';
 import { useGameStateContext } from '../components/gamestate-context';
 
-import Adagrams from 'demo-react/adagrams';
+import Adagrams from 'demo-react/adagrams-proxy';
 
 export default function Game() {
   const { state } = useGameStateContext();

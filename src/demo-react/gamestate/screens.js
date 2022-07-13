@@ -15,11 +15,3 @@ export class SwitchScreenAction {
     this.payload = screenId;
   }
 }
-
-export function onHelpScreen(state) {
-  return state.currentScreen === ScreenId.HOW_TO;
-}
-
-export function onSetupScreen(state) {
-  return state.currentScreen === ScreenId.SETUP;
-}

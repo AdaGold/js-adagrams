@@ -3,9 +3,9 @@ import * as Actions from 'demo-react/gamestate/action-types';
 import makeAction from 'demo-react/gamestate/generic-action';
 import { ScreenId } from 'demo-react/gamestate/screens';
 
-import Adagrams from 'demo-react/adagrams';
+import Adagrams from 'demo-react/adagrams-proxy';
 
-jest.mock('demo-react/adagrams', () => {
+jest.mock('demo-react/adagrams-proxy', () => {
   return {
     drawLetters: jest.fn(() => ["H", "E", "L", "L", "O", "W", "O", "R", "L", "D"]),
     usesAvailableLetters: jest.fn(() => true),
