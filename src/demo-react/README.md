@@ -21,7 +21,7 @@ The app itself starts at [cli.js](./cli.js), which is where we call Ink's `rende
 
 More details about screens, gamestate, and the reusable components can be found by going to their folders:
 - [screens/](./screens/): React components that represent the various "screens" that players move through during the game. The [ScreenDisplayer](./screens/index.js) chooses the screen based on the current state.
-- [gamestate/](./gamestate/): Reducers, actions, and "middleware", that store and allow changes on the state of the game and its UI. This folder follows a pattern that is like [redux](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#what-is-redux) but implemented with React's own [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer).
+- [gamestate/](./gamestate/): Reducers and actions that store and allow changes on the state of the game and its UI. This folder follows a pattern that is like [redux](https://redux.js.org/tutorials/essentials/part-1-overview-concepts#what-is-redux) but implemented with React's own [useReducer](https://reactjs.org/docs/hooks-reference.html#usereducer).
 - [components/](./components/): React components that can be reused. This includes simple display-only components like [Button](./components/button.js), complex input-handling components like [NumberField](./components/number-field.js), and more-esoteric components such as the context-providing [GameStateStore](./components/gamestate-context.js).
 
 ## History

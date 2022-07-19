@@ -7,11 +7,7 @@ export class SetErrorAction {
   }
 }
 
-export function getLastError(state) {
-  return state.lastError
-}
-
-export function errorMiddleware(wrappedReducer) {
+export function withLastError(wrappedReducer) {
   // Intercept any error actions and forward the rest to the wrapped reducer.
   return (state, action) => {
     switch(action.type) {

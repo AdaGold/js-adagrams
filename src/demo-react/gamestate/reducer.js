@@ -1,11 +1,11 @@
 import { useReducer } from 'react';
 
 import * as Actions from './action-types';
-import { errorMiddleware } from './errors';
+import { withLastError } from './errors';
 import { validateOptionsInput } from './options';
 import { validateGuessInput } from './rules';
 import { ScreenId } from './screens';
-import { timerMiddleware } from './timer';
+import { withGameTimer } from './timer';
 
 import Adagrams from 'demo-react/adagrams-proxy';
 
@@ -149,10 +149,10 @@ function guessWord(state, word) {
 }
 
 export const reducer =
-  timerMiddleware(
+  withGameTimer(
     validateGuessInput(
       validateOptionsInput(
-        errorMiddleware(
+        withLastError(
           gameStateReducer
         )
       )

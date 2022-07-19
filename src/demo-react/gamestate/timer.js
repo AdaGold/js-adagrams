@@ -1,7 +1,7 @@
 import makeAction from './generic-action';
 import { ADVANCE_TURN, TICK } from './action-types';
 
-export function timerMiddleware(reducer) {
+export function withGameTimer(reducer) {
   return (state, action) => {
     if (action.type !== TICK) {
       return reducer(state, action);
