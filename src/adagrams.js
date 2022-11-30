@@ -1,4 +1,4 @@
-const distributionOfLetter = {
+const LETTERPOOL = {
   A: 9,
   B: 2,
   C: 2,
@@ -27,31 +27,128 @@ const distributionOfLetter = {
   Z: 1,
 };
 
-const letterPool = [];
+const VALUEDICT = {
+  A: 1,
+  E: 1,
+  I: 1,
+  O: 1,
+  U: 1,
+  L: 1,
+  N: 1,
+  R: 1,
+  S: 1,
+  T: 1,
+  D: 2,
+  G: 2,
+  B: 3,
+  C: 3,
+  M: 3,
+  P: 3,
+  F: 4,
+  H: 4,
+  V: 4,
+  W: 4,
+  Y: 4,
+  K: 5,
+  J: 8,
+  X: 8,
+  Q: 10,
+  Z: 10,
+};
 
 export const drawLetters = () => {
-  if (letterPool.length == 0) {
-    buildLetterPool(distributionOfLetter);
+  const letterList = buildLetterList();
+
+  let count = 0;
+  const drawnLetters = [];
+
+  while (count < 10) {
+    const index = Math.floor(Math.random() * letterList.length);
+    drawnLetters.push(letterList[index]);
+    letterList.splice(index, 1);
+    count++;
   }
+
+  return drawnLetters;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const letterDict = {};
+
+  for (let letter in lettersInHand) {
+    if (letter in letterDict) {
+      letterDict[letter] += 1;
+    } else {
+      letterDict[letter] = 1;
+    }
+  }
+
+  for (let letter in input) {
+    letter = letter.toUpperCase();
+    if (!letter in letterDict || letterDict[letter] == 0) {
+      return false;
+    } else {
+      letterDict[letter] -= 1;
+    }
+  }
+
+  return true;
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let sum = 0;
+
+  for (let letter in word) {
+    letter = letter.toUpperCase();
+    sum += VALUEDICT[letter];
+  }
+
+  if (word.length >= 7 && word.length <= 10) {
+    sum += 8;
+  }
+
+  return sum;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-};
+  let highestScore = 0;
+  const highestScoreWords = [];
 
-// Helper Functions
-const buildLetterPool = function (distributionOfLetter) {
-  for (let letter in distributionOfLetter) {
-    for (let i = 0; i < distributionOfLetter[letter]; i++) {
-      letterPool.push(letter);
+  for (const word in words) {
+    const score = scoreWord(word);
+    if (score > highestScore) {
+      highestScoreWords.length = 0;
+      highestScoreWords.push(word);
+      highestScore = score;
+    } else if (score == highestScore) {
+      highestScoreWords.push(word);
     }
   }
+
+  let shortestWordLen = highestScoreWords[0].length;
+  let shortestWord = highestScoreWords[0];
+
+  for (let word in highestScoreWords) {
+    if (word.length == 10) {
+      return [word, scoreWord(word)];
+    } else if (word.length < shortestWordLen) {
+      shortestWordLen = word.length;
+      shortestWord = word;
+    }
+  }
+
+  return [shortestWord, scoreWord(shortestWord)];
+};
+
+/********* Helper Functions *********/
+const buildLetterList = function() {
+  const letterList = [];
+
+  for (let letter in LETTERPOOL) {
+    for (let i = 0; i < LETTERPOOL[letter]; i++) {
+      letterList.push(letter);
+    }
+  }
+
+  return letterList;
 };
