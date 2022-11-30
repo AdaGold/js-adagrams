@@ -37,10 +37,11 @@ export const drawLetters = () => {
 
   const hand = [];
   while (hand.length < 10) {
-    randomLetter = getRandomLetter(letterBank);
-    // need to add logic to check letter distribution
-    hand.push(randomLetter);
-    console.log(hand);
+    const randomLetter = getRandomLetter(letterBank);
+    const occurance = hand.filter((x) => x === randomLetter).length;
+    if (occurance < letterBank[randomLetter]) {
+      hand.push(randomLetter);
+    }
   }
 
   return hand;
