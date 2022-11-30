@@ -60,7 +60,28 @@ export const usesAvailableLetters = (input, drawn) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  const scoreChart = {
+    AEIOULNRST: 1,
+    DG: 2,
+    BCMP: 3,
+    FHVWY: 4,
+    K: 5,
+    JX: 8,
+    QZ: 10,
+  };
+
+  let total = 0;
+  for (let letter of word.toUpperCase()) {
+    let key = Object.keys(scoreChart).filter(function (key) {
+      return key.includes(letter);
+    });
+    const score = scoreChart[key];
+    total += score;
+  }
+  if (word.length > 6) {
+    total += 8;
+  }
+  return total;
 };
 
 export const highestScoreFrom = (words) => {
