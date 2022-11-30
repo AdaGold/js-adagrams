@@ -114,7 +114,7 @@ export const highestScoreFrom = (words) => {
   let highestScore = 0;
   const highestScoreWords = [];
 
-  for (const word in words) {
+  for (const word of words) {
     const score = scoreWord(word);
     if (score > highestScore) {
       highestScoreWords.length = 0;
@@ -128,16 +128,16 @@ export const highestScoreFrom = (words) => {
   let shortestWordLen = highestScoreWords[0].length;
   let shortestWord = highestScoreWords[0];
 
-  for (let word in highestScoreWords) {
+  for (let word of highestScoreWords) {
     if (word.length == 10) {
-      return [word, scoreWord(word)];
+      return {word: word, score: scoreWord(word)};
     } else if (word.length < shortestWordLen) {
       shortestWordLen = word.length;
       shortestWord = word;
     }
   }
 
-  return [shortestWord, scoreWord(shortestWord)];
+  return {word: shortestWord, score: scoreWord(shortestWord)};
 };
 
 /********* Helper Functions *********/
