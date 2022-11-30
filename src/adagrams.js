@@ -26,46 +26,84 @@ const letterPool = {
   Y: 2,
   Z: 1,
 };
+
+const scoreChart = {
+  A: 1,
+  B: 3,
+  C: 3,
+  D: 2,
+  E: 1,
+  F: 4,
+  G: 2,
+  H: 4,
+  I: 1,
+  J: 8,
+  K: 5,
+  L: 1,
+  M: 3,
+  N: 1,
+  O: 1,
+  P: 3,
+  Q: 10,
+  R: 1,
+  S: 1,
+  T: 1,
+  U: 1,
+  V: 4,
+  W: 4,
+  X: 8,
+  Y: 4,
+  Z: 10,
+};
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export const drawLetters = () => {
   let letterPoolDict = { ...letterPool };
-  let hand = [];
+  let lettersInHand = [];
 
-  while (hand.length < 10) {
+  while (lettersInHand.length < 10) {
     let letter = alphabet[Math.floor(Math.random() * alphabet.length)];
     if (letterPoolDict[letter] > 0) {
       letterPoolDict[letter] -= 1;
-      hand.push(letter);
+      lettersInHand.push(letter);
     }
   }
-  return hand;
+  return lettersInHand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  let handDict = {};
+  let drawnDict = {};
 
   for (let letter of lettersInHand) {
-    if (letter in handDict) {
-      handDict[letter] += 1;
+    if (letter in drawnDict) {
+      drawnDict[letter] += 1;
     } else {
-      handDict[letter] = 1;
+      drawnDict[letter] = 1;
     }
   }
-  let word = [...input];
+
+  let word = [...input.toUpperCase()];
 
   for (let letter of word) {
-    if (handDict[letter] === 0 || !handDict[letter]) {
+    if (drawnDict[letter] == 0 || !drawnDict[letter]) {
       return false;
     } else {
-      handDict[letter] -= 1;
+      drawnDict[letter] -= 1;
     }
   }
+
   return true;
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  const wordList = [...word.toUpperCase()];
+  let score = 0;
+  if (wordList.length >= 7) {
+    score += 8;
+  }
+
+  wordList.forEach((letter) => (score += scoreChart[letter]));
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
