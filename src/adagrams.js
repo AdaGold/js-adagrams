@@ -98,7 +98,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 export const scoreWord = (word) => {
   let sum = 0;
 
-  for (let letter in word) {
+  for (let letter of word) {
     letter = letter.toUpperCase();
     sum += VALUEDICT[letter];
   }
