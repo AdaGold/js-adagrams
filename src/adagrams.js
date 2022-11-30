@@ -29,24 +29,39 @@ const letterPool = {
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export const drawLetters = () => {
-  let letterPoolDict = {...letterPool};
+  let letterPoolDict = { ...letterPool };
   let hand = [];
-  let i = 0;
 
-  while (i < 10) {
+  while (hand.length < 10) {
     let letter = alphabet[Math.floor(Math.random() * alphabet.length)];
     if (letterPoolDict[letter] > 0) {
       letterPoolDict[letter] -= 1;
       hand.push(letter);
-      i++;
     }
   }
   return hand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // handDict = {}
-  // for letter_
+  let handDict = {};
+
+  for (let letter of lettersInHand) {
+    if (letter in handDict) {
+      handDict[letter] += 1;
+    } else {
+      handDict[letter] = 1;
+    }
+  }
+  let word = [...input];
+
+  for (let letter of word) {
+    if (handDict[letter] === 0 || !handDict[letter]) {
+      return false;
+    } else {
+      handDict[letter] -= 1;
+    }
+  }
+  return true;
 };
 
 export const scoreWord = (word) => {
