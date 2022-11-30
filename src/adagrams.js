@@ -74,13 +74,13 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   let drawnDict = {};
 
-  for (let letter of lettersInHand) {
+  lettersInHand.forEach((letter) => {
     if (letter in drawnDict) {
       drawnDict[letter] += 1;
     } else {
       drawnDict[letter] = 1;
     }
-  }
+  });
 
   let word = [...input.toUpperCase()];
 
