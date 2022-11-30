@@ -75,7 +75,7 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   const letterDict = {};
 
-  for (let letter in lettersInHand) {
+  for (let letter of lettersInHand) {
     if (letter in letterDict) {
       letterDict[letter] += 1;
     } else {
@@ -83,9 +83,9 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     }
   }
 
-  for (let letter in input) {
+  for (let letter of input) {
     letter = letter.toUpperCase();
-    if (!letter in letterDict || letterDict[letter] == 0) {
+    if (!(letter in letterDict) || letterDict[letter] == 0) {
       return false;
     } else {
       letterDict[letter] -= 1;
