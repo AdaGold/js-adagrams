@@ -28,12 +28,22 @@ export const drawLetters = () => {
     Z: 1,
   };
   function getRandomLetter(letterBank) {
+    // get an array of letters by accessing the keys in the object
     const letters = Object.keys(letterBank);
+    // Math.floor rounds down to the int and Math.random picks a random number in the range of 0 - 0.999
+    // multiply the random number by the lenth of the letters array to return a random letter
     return letters[Math.floor(Math.random() * letters.length)];
   }
 
   const hand = [];
-  while (hand.length < 10) {}
+  while (hand.length < 10) {
+    randomLetter = getRandomLetter(letterBank);
+    // need to add logic to check letter distribution
+    hand.push(randomLetter);
+    console.log(hand);
+  }
+
+  return hand;
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
