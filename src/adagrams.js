@@ -29,14 +29,13 @@ const letterPool = {
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export const drawLetters = () => {
-  // Implement this method for wave 1
-  let letterPoolDict = letterPool;
+  let letterPoolDict = {...letterPool};
   let hand = [];
   let i = 0;
 
   while (i < 10) {
     let letter = alphabet[Math.floor(Math.random() * alphabet.length)];
-    if (letterPoolDict[letter] < 0) {
+    if (letterPoolDict[letter] > 0) {
       letterPoolDict[letter] -= 1;
       hand.push(letter);
       i++;
@@ -46,7 +45,8 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  // handDict = {}
+  // for letter_
 };
 
 export const scoreWord = (word) => {
