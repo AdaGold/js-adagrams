@@ -58,13 +58,14 @@ const scoreChart = {
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export const drawLetters = () => {
-  let letterPoolDict = { ...letterPool };
+  let availableLetters = { ...letterPool };
   let lettersInHand = [];
 
   while (lettersInHand.length < 10) {
     let letter = alphabet[Math.floor(Math.random() * alphabet.length)];
-    if (letterPoolDict[letter] > 0) {
-      letterPoolDict[letter] -= 1;
+
+    if (availableLetters[letter] > 0) {
+      availableLetters[letter] -= 1;
       lettersInHand.push(letter);
     }
   }
@@ -107,5 +108,24 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  let highestScore = 0;
+  let winningWord = "";
+
+  words.forEach((word) => {
+    const score = scoreWord(word);
+
+    if (score > highestScore) {
+      highestScore = score;
+      winningWord = word;
+    } else if (score === highestScore) {
+      if (word.length === 10 && winningWord.length != 10) {
+        winningWord = word;
+      } else if (word.length < winningWord.length && winningWord.length != 10) {
+        winningWord = word;
+      }
+    }
+  });
+
+  const winner = { word: `${winningWord}`, score: highestScore };
+  return winner;
 };
