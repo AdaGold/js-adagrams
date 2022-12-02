@@ -59,13 +59,13 @@ const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 export const drawLetters = () => {
   let availableLetters = { ...letterPool };
-  let lettersInHand = [];
+  const lettersInHand = [];
 
   while (lettersInHand.length < 10) {
-    let letter = alphabet[Math.floor(Math.random() * alphabet.length)];
+    const letter = alphabet[Math.floor(Math.random() * alphabet.length)];
 
     if (availableLetters[letter] > 0) {
-      availableLetters[letter] -= 1;
+      availableLetters[letter]--;
       lettersInHand.push(letter);
     }
   }
@@ -73,23 +73,23 @@ export const drawLetters = () => {
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  let drawnDict = {};
+  const drawnDict = {};
 
   lettersInHand.forEach((letter) => {
     if (letter in drawnDict) {
-      drawnDict[letter] += 1;
+      drawnDict[letter]++;
     } else {
       drawnDict[letter] = 1;
     }
   });
 
-  let word = [...input.toUpperCase()];
+  const word = [...input.toUpperCase()];
 
-  for (let letter of word) {
+  for (const letter of word) {
     if (drawnDict[letter] == 0 || !drawnDict[letter]) {
       return false;
     } else {
-      drawnDict[letter] -= 1;
+      drawnDict[letter]--;
     }
   }
 
@@ -126,6 +126,6 @@ export const highestScoreFrom = (words) => {
     }
   });
 
-  const winner = { word: `${winningWord}`, score: highestScore };
+  const winner = { word: winningWord, score: highestScore };
   return winner;
 };
