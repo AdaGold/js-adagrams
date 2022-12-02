@@ -26,15 +26,12 @@ const LETTER_POOL = {
   Y: 2,
   Z: 1,
 };
-
+// ================ WAVE 1 ==================================
 export const drawLetters = () => {
   //copy of LETTER_POOL so that original object doesn't change
-  let letterPool = {
-    ...LETTER_POOL,
-  };
-  console.log(letterPool)
-  
-  // looping through the letters/key and then adding corresponding
+  let letterPool = { ...LETTER_POOL };
+
+  // looping through the letters/keys and then adding corresponding
   // #in value to array
   let availableLetters = [];
   for (let letter in letterPool) {
@@ -42,33 +39,38 @@ export const drawLetters = () => {
       availableLetters.push(letter);
     }
   }
-  console.log(availableLetters)
+
   // creating a hand with 10 random letters
   let handArray = [];
   while (handArray.length < 10) {
-    let randomNumber = Math.floor(Math.random() * availableLetters.length)
+    // using a random number as a random index, and then tracking the randomNumber
+    let randomNumber = Math.floor(Math.random() * availableLetters.length);
     let randomLetter = availableLetters[randomNumber];
-    // if (availableLetters[hand] >= 1) {
-    //   handArray.push(hand);
-    //   availableLetters[hand] -= 1;
-    // }
-    console.log(`this is the random letter ${randomLetter}`)
-    console.log(`this is the random number ${randomNumber}`)
     handArray.push(randomLetter);
-    availableLetters.splice(randomNumber, 1)
+    availableLetters.splice(randomNumber, 1); //removes letter so it can't be re-drawn
   }
-  console.log(handArray)
-  return handArray
+  return handArray;
 };
 
+// ================ WAVE 2 ==================================
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-};
+  //copy of lettersInHand, for some reason ... didn't work
+  let lettersInHandCopy = lettersInHand.slice();
 
+  for (const letter of input.toUpperCase()) {
+    if (!lettersInHandCopy.includes(letter)) return false;
+    else if (lettersInHandCopy.includes(letter)) {
+      lettersInHandCopy.splice(letter, 1);
+    }
+  }
+  return true;
+};
+// ================ WAVE 3 ==================================
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 };
 
+// ================ WAVE 4 ==================================
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
 };
