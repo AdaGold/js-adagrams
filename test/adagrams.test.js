@@ -73,10 +73,11 @@ describe("Adagrams", () => {
   });
 
   describe("usesAvailableLetters", () => {
-    const newAdagram = new Adagrams();
     it("returns true if the submitted letters are valid against the drawn letters", () => {
       // const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
       // const drawn = newAdagram.drawLetters();
+      const newAdagram = new Adagrams();
+
       const word = "DOG";
 
       const isValid = Adagrams.usesAvailableLetters(word, newAdagram);
@@ -88,6 +89,7 @@ describe("Adagrams", () => {
       const word = "DOG";
 
       const isValid = newAdagram.usesAvailableLetters(word, drawn);
+      console.log(isValid);
       expect(isValid).toBe(false);
     });
 
