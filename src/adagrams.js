@@ -132,9 +132,6 @@ export const highestScoreFrom = (words) => {
 
 // ------------ Wave 05---------------------------
 class Adagrams {
-  constructor(input) {
-    this.input = input;
-  }
   drawLetters() {
     let availableLetters = { ...letterPool };
     const lettersInHand = [];
@@ -150,26 +147,28 @@ class Adagrams {
     return lettersInHand;
   }
 
-  usesAvailableLetters(this.input, lettersInHand) {
-    const drawnDict = {};
+  // usesAvailableLetters(this.input, lettersInHand) {
+  //   const drawnDict = {};
 
-    lettersInHand.forEach((letter) => {
-      if (letter in drawnDict) {
-        drawnDict[letter]++;
-      } else {
-        drawnDict[letter] = 1;
-      }
-    });
-    const word = [...input.toUpperCase()];
+  //   lettersInHand.forEach((letter) => {
+  //     if (letter in drawnDict) {
+  //       drawnDict[letter]++;
+  //     } else {
+  //       drawnDict[letter] = 1;
+  //     }
+  //   });
+  //   const word = [...input.toUpperCase()];
 
-    for (const letter of word) {
-      if (drawnDict[letter] == 0 || !drawnDict[letter]) {
-        return false;
-      } else {
-        drawnDict[letter]--;
-      }
-    }
+  //   for (const letter of word) {
+  //     if (drawnDict[letter] == 0 || !drawnDict[letter]) {
+  //       return false;
+  //     } else {
+  //       drawnDict[letter]--;
+  //     }
+  //   }
 
-    return true;
-  };
+  //   return true;
+  // };
 }
+
+export default Adagrams;

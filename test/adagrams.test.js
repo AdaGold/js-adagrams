@@ -3,6 +3,7 @@ import {
   usesAvailableLetters,
   scoreWord,
   highestScoreFrom,
+  Adagrams,
 } from "adagrams";
 
 const LETTER_POOL = {
@@ -36,14 +37,16 @@ const LETTER_POOL = {
 
 describe("Adagrams", () => {
   describe("drawLetters", () => {
-    it("draws ten letters from the letter pool", () => {
-      const drawn = drawLetters();
+    const newAdagram = new Adagrams();
+
+    it("draws ten letters from the letter pool", (newAdagram) => {
+      const drawn = newAdagram.drawLetters();
 
       expect(drawn).toHaveLength(10);
     });
 
     it("returns an array, and each item is a single-letter string", () => {
-      const drawn = drawLetters();
+      const drawn = newAdagram.drawLetters();
 
       expect(Array.isArray(drawn)).toBe(true);
       drawn.forEach((l) => {
@@ -53,7 +56,7 @@ describe("Adagrams", () => {
 
     it("does not draw a letter too many times", () => {
       for (let i = 0; i < 1000; i++) {
-        const drawn = drawLetters();
+        const drawn = newAdagrams.drawLetters();
         const letter_freq = {};
         for (let letter of drawn) {
           if (letter in letter_freq) {
