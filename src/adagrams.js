@@ -147,28 +147,29 @@ class Adagrams {
     return lettersInHand;
   }
 
-  // usesAvailableLetters(this.input, lettersInHand) {
-  //   const drawnDict = {};
+  static usesAvailableLetters(input, Adagrams) {
+    const drawnDict = {};
+    const lettersInHand = Adagrams.drawLetters();
 
-  //   lettersInHand.forEach((letter) => {
-  //     if (letter in drawnDict) {
-  //       drawnDict[letter]++;
-  //     } else {
-  //       drawnDict[letter] = 1;
-  //     }
-  //   });
-  //   const word = [...input.toUpperCase()];
+    lettersInHand.forEach((letter) => {
+      if (letter in drawnDict) {
+        drawnDict[letter]++;
+      } else {
+        drawnDict[letter] = 1;
+      }
+    });
+    const word = [...input.toUpperCase()];
 
-  //   for (const letter of word) {
-  //     if (drawnDict[letter] == 0 || !drawnDict[letter]) {
-  //       return false;
-  //     } else {
-  //       drawnDict[letter]--;
-  //     }
-  //   }
+    for (const letter of word) {
+      if (drawnDict[letter] == 0 || !drawnDict[letter]) {
+        return false;
+      } else {
+        drawnDict[letter]--;
+      }
+    }
 
-  //   return true;
-  // };
+    return true;
+  }
 }
 
 export default Adagrams;

@@ -3,9 +3,8 @@ import {
   usesAvailableLetters,
   scoreWord,
   highestScoreFrom,
-  Adagrams,
 } from "adagrams";
-
+import Adagrams from "../src/adagrams";
 const LETTER_POOL = {
   A: 9,
   B: 2,
@@ -39,7 +38,7 @@ describe("Adagrams", () => {
   describe("drawLetters", () => {
     const newAdagram = new Adagrams();
 
-    it("draws ten letters from the letter pool", (newAdagram) => {
+    it("draws ten letters from the letter pool", () => {
       const drawn = newAdagram.drawLetters();
 
       expect(drawn).toHaveLength(10);
@@ -56,7 +55,7 @@ describe("Adagrams", () => {
 
     it("does not draw a letter too many times", () => {
       for (let i = 0; i < 1000; i++) {
-        const drawn = newAdagrams.drawLetters();
+        const drawn = newAdagram.drawLetters();
         const letter_freq = {};
         for (let letter of drawn) {
           if (letter in letter_freq) {
@@ -74,11 +73,13 @@ describe("Adagrams", () => {
   });
 
   describe("usesAvailableLetters", () => {
+    const newAdagram = new Adagrams();
     it("returns true if the submitted letters are valid against the drawn letters", () => {
-      const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
+      // const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
+      // const drawn = newAdagram.drawLetters();
       const word = "DOG";
 
-      const isValid = usesAvailableLetters(word, drawn);
+      const isValid = Adagrams.usesAvailableLetters(word, newAdagram);
       expect(isValid).toBe(true);
     });
 
@@ -86,7 +87,7 @@ describe("Adagrams", () => {
       const drawn = ["D", "O", "X", "X", "X", "X", "X", "X", "X", "X"];
       const word = "DOG";
 
-      const isValid = usesAvailableLetters(word, drawn);
+      const isValid = newAdagram.usesAvailableLetters(word, drawn);
       expect(isValid).toBe(false);
     });
 
@@ -94,7 +95,7 @@ describe("Adagrams", () => {
       const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
       const word = "GOOD";
 
-      const isValid = usesAvailableLetters(word, drawn);
+      const isValid = newAdagram.usesAvailableLetters(word, drawn);
       expect(isValid).toBe(false);
     });
   });
