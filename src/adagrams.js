@@ -94,21 +94,63 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   }
   return true;
 };
+
 // ================ WAVE 3 ==================================
 export const scoreWord = (word) => {
   let wordUpper = word.toUpperCase();
   let score = 0;
   for (let letter of wordUpper) {
     score += LETTER_POINTS[letter];
-  } 
-  
+  }
+
   if (wordUpper.length >= 7 && wordUpper.length <= 10) {
-      score += 8;
+    score += 8;
   }
   return score;
 };
 
 // ================ WAVE 4 ==================================
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  // highest_score = 0
+  // highest_word = ()
+  // for word in word_list:
+  //     if score_word(word) == highest_score:
+  //         if len(highest_word) == 10:
+  //             continue
+  //         # conditional if the word has 10 letters prioritize it but if it doesn't have 10 letters
+  //         # prioritize a shorter word
+  //         elif len(word) == 10 or len(word) < len(highest_word):
+  //             highest_word = word
+  //     else:
+  //         if score_word(word) > highest_score:
+  //             highest_score = score_word(word)
+  //             highest_word = word
+  // return (highest_word, highest_score)
+
+  // declare variables to track the highest score and the word with the best score
+  let highestScore = 0;
+  let highestWord = "";
+  //loop through each word in the array "words"
+  for (let word of words) {
+    //use scoreWord function from earlier to score the word. If the word equals highestScore then
+    // check to see if it also has length of 10, or if the word has a length of 10 or
+    if (scoreWord(word) === highestScore) {
+      if (highestWord.length === 10) {
+        continue;
+      } else if (word.length === 10 || word.length < highestWord.length) {
+        highestWord = word;
+      }
+    } 
+      // if the word !== highestScore then if the word is greater than highestScore
+      else if (scoreWord(word) > highestScore) {
+        highestScore = scoreWord(word);
+        highestWord = word;
+      }
+  }
+
+  let finalScore = {
+    word: highestWord,
+    score: highestScore,
+  };
+  return finalScore;
 };
