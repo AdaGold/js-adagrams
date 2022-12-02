@@ -57,44 +57,44 @@ const scoreChart = {
 };
 const alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-export const drawLetters = () => {
-  let availableLetters = { ...letterPool };
-  const lettersInHand = [];
+// export const drawLetters = () => {
+//   let availableLetters = { ...letterPool };
+//   const lettersInHand = [];
 
-  while (lettersInHand.length < 10) {
-    const letter = alphabet[Math.floor(Math.random() * alphabet.length)];
+//   while (lettersInHand.length < 10) {
+//     const letter = alphabet[Math.floor(Math.random() * alphabet.length)];
 
-    if (availableLetters[letter] > 0) {
-      availableLetters[letter]--;
-      lettersInHand.push(letter);
-    }
-  }
-  return lettersInHand;
-};
+//     if (availableLetters[letter] > 0) {
+//       availableLetters[letter]--;
+//       lettersInHand.push(letter);
+//     }
+//   }
+//   return lettersInHand;
+// };
 
-export const usesAvailableLetters = (input, lettersInHand) => {
-  const drawnDict = {};
+// export const usesAvailableLetters = (input, lettersInHand) => {
+//   const drawnDict = {};
 
-  lettersInHand.forEach((letter) => {
-    if (letter in drawnDict) {
-      drawnDict[letter]++;
-    } else {
-      drawnDict[letter] = 1;
-    }
-  });
+//   lettersInHand.forEach((letter) => {
+//     if (letter in drawnDict) {
+//       drawnDict[letter]++;
+//     } else {
+//       drawnDict[letter] = 1;
+//     }
+//   });
 
-  const word = [...input.toUpperCase()];
+//   const word = [...input.toUpperCase()];
 
-  for (const letter of word) {
-    if (drawnDict[letter] == 0 || !drawnDict[letter]) {
-      return false;
-    } else {
-      drawnDict[letter]--;
-    }
-  }
+//   for (const letter of word) {
+//     if (drawnDict[letter] == 0 || !drawnDict[letter]) {
+//       return false;
+//     } else {
+//       drawnDict[letter]--;
+//     }
+//   }
 
-  return true;
-};
+//   return true;
+// };
 
 export const scoreWord = (word) => {
   const wordList = [...word.toUpperCase()];
@@ -129,3 +129,47 @@ export const highestScoreFrom = (words) => {
   const winner = { word: winningWord, score: highestScore };
   return winner;
 };
+
+// ------------ Wave 05---------------------------
+class Adagrams {
+  constructor(input) {
+    this.input = input;
+  }
+  drawLetters() {
+    let availableLetters = { ...letterPool };
+    const lettersInHand = [];
+
+    while (lettersInHand.length < 10) {
+      const letter = alphabet[Math.floor(Math.random() * alphabet.length)];
+
+      if (availableLetters[letter] > 0) {
+        availableLetters[letter]--;
+        lettersInHand.push(letter);
+      }
+    }
+    return lettersInHand;
+  }
+
+  usesAvailableLetters(this.input, lettersInHand) {
+    const drawnDict = {};
+
+    lettersInHand.forEach((letter) => {
+      if (letter in drawnDict) {
+        drawnDict[letter]++;
+      } else {
+        drawnDict[letter] = 1;
+      }
+    });
+    const word = [...input.toUpperCase()];
+
+    for (const letter of word) {
+      if (drawnDict[letter] == 0 || !drawnDict[letter]) {
+        return false;
+      } else {
+        drawnDict[letter]--;
+      }
+    }
+
+    return true;
+  };
+}
