@@ -26,6 +26,35 @@ const LETTER_POOL = {
   Y: 2,
   Z: 1,
 };
+
+const LETTER_POINTS = {
+  A: 1,
+  E: 1,
+  I: 1,
+  O: 1,
+  L: 1,
+  N: 1,
+  R: 1,
+  S: 1,
+  T: 1,
+  D: 2,
+  G: 2,
+  B: 3,
+  C: 3,
+  M: 3,
+  P: 3,
+  F: 4,
+  H: 4,
+  V: 4,
+  W: 4,
+  Y: 4,
+  K: 5,
+  J: 8,
+  X: 8,
+  Q: 10,
+  Z: 10,
+};
+
 // ================ WAVE 1 ==================================
 export const drawLetters = () => {
   //copy of LETTER_POOL so that original object doesn't change
@@ -67,7 +96,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 // ================ WAVE 3 ==================================
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  let wordUpper = word.toUpperCase();
+  let score = 0;
+  for (let letter of wordUpper) {
+    score += LETTER_POINTS[letter];
+  } 
+  
+  if (wordUpper.length >= 7 && wordUpper.length <= 10) {
+      score += 8;
+  }
+  return score;
 };
 
 // ================ WAVE 4 ==================================
