@@ -111,46 +111,31 @@ export const scoreWord = (word) => {
 
 // ================ WAVE 4 ==================================
 export const highestScoreFrom = (words) => {
-  // highest_score = 0
-  // highest_word = ()
-  // for word in word_list:
-  //     if score_word(word) == highest_score:
-  //         if len(highest_word) == 10:
-  //             continue
-  //         # conditional if the word has 10 letters prioritize it but if it doesn't have 10 letters
-  //         # prioritize a shorter word
-  //         elif len(word) == 10 or len(word) < len(highest_word):
-  //             highest_word = word
-  //     else:
-  //         if score_word(word) > highest_score:
-  //             highest_score = score_word(word)
-  //             highest_word = word
-  // return (highest_word, highest_score)
-
   // declare variables to track the highest score and the word with the best score
   let highestScore = 0;
   let highestWord = "";
   //loop through each word in the array "words"
   for (let word of words) {
-    //use scoreWord function from earlier to score the word. If the word equals highestScore then
-    // check to see if it also has length of 10, or if the word has a length of 10 or
+    //if a word score is equal to the highestScore, this code block will execute. If the current highestScore word has a length
+    //of 10, then the code continues to the rest of the words in the array because it's prioritizing the length-10 word.
+    //if there isn't already a highestScore word with a length of 10 and if the word being scored has a length of 10,
+    //or if the word being scored is shorter than the current highestWord, prioritize that word
     if (scoreWord(word) === highestScore) {
       if (highestWord.length === 10) {
         continue;
       } else if (word.length === 10 || word.length < highestWord.length) {
         highestWord = word;
       }
-    } 
-      // if the word !== highestScore then if the word is greater than highestScore
-      else if (scoreWord(word) > highestScore) {
-        highestScore = scoreWord(word);
-        highestWord = word;
-      }
+    }
+    // the first time the loop runs, it will jump down here because highestScore will be 0.
+    //highestScore then becomes the first word. If the next word score is greater than the the first word score,
+    //the code jumps down here and the next word becomes the new high score.
+    else if (scoreWord(word) > highestScore) {
+      highestScore = scoreWord(word);
+      highestWord = word;
+    }
   }
 
-  let finalScore = {
-    word: highestWord,
-    score: highestScore,
-  };
+  let finalScore = { word: highestWord, score: highestScore };
   return finalScore;
 };
