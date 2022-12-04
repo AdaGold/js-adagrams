@@ -86,4 +86,23 @@ export const scoreWord = (word) => {
 
 export const highestScoreFrom = (words) => {
   // Implement this method for wave 4
+  // initialize an empty array
+  // iterate over words array
+  // calculate the score for each word and store the word and the score in a dict pushed to the array
+  // set max_score === 0
+  // set min_length === 10
+  // best word is none
+  // iterate over the new array:
+  // if the score > max score:
+  // max_score === score;
+  //  if word length === 10
+  // word = best word
+  // else if word length < min_length
+  // min_length = word length
+  // best_word is word
+  // return object {word: string of the best word,
+  //                score: score of that word}
+  // tie breaker - word with fewest letters
+  // unless one word has 10 letters
+  // multiple with same length and score, pick the 1st
 };
