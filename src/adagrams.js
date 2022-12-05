@@ -63,28 +63,30 @@ export const scoreWord = (word) => {
     for (const letter of letters) {
       letterScore[letter] = score;
     }
-
-    buildScoreDict(["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], 1);
-    buildScoreDict(["D", "G"], 2);
-    buildScoreDict(["B", "C", "M", "P"], 3);
-    buildScoreDict(["F", "H", "V", "W", "Y"], 4);
-    buildScoreDict(["K"], 5);
-    buildScoreDict(["J", "X"], 8);
-    buildScoreDict(["Q", "Z"], 10);
   };
+
+  buildScoreDict(["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], 1);
+  buildScoreDict(["D", "G"], 2);
+  buildScoreDict(["B", "C", "M", "P"], 3);
+  buildScoreDict(["F", "H", "V", "W", "Y"], 4);
+  buildScoreDict(["K"], 5);
+  buildScoreDict(["J", "X"], 8);
+  buildScoreDict(["Q", "Z"], 10);
+
   // calculate score
   word = word.toUpperCase();
 
   let points = 0;
   if (word.length === 0) {
     return points;
-  } else
-    for (let letter of word) {
-      points += letterScore[letter];
-    }
-  if (word.length > 7) {
+  } else if (word.length > 7) {
     points += 8;
   }
+
+  for (let letter of word) {
+    points += letterScore[letter];
+  }
+
   return points;
 };
 
