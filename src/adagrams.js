@@ -63,42 +63,47 @@ export const scoreWord = (word) => {
     for (const letter of letters) {
       letterScore[letter] = score;
     }
+
+    buildScoreDict(["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], 1);
+    buildScoreDict(["D", "G"], 2);
+    buildScoreDict(["B", "C", "M", "P"], 3);
+    buildScoreDict(["F", "H", "V", "W", "Y"], 4);
+    buildScoreDict(["K"], 5);
+    buildScoreDict(["J", "X"], 8);
+    buildScoreDict(["Q", "Z"], 10);
   };
-
-  buildScoreDict(["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"], 1);
-  buildScoreDict(["D", "G"], 2);
-  buildScoreDict(["B", "C", "M", "P"], 3);
-  buildScoreDict(["F", "H", "V", "W", "Y"], 4);
-  buildScoreDict(["K"], 5);
-  buildScoreDict(["J", "X"], 8);
-  buildScoreDict(["Q", "Z"], 10);
-
   // calculate score
-  let score = 0;
   word = word.toUpperCase();
-  for (let letter of word) {
-    score += letterScore[letter];
+
+  let points = 0;
+  if (word.length === 0) {
+    return points;
+  } else
+    for (let letter of word) {
+      points += letterScore[letter];
+    }
+  if (word.length > 7) {
+    points += 8;
   }
-  return score;
+  return points;
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-  let max = 0;
-  let highestScoreWord = "";
-  for (const word in words) {
-    if (scoreWord(word) > max) {
-      max = scoreWord(word);
-      highestScoreWord = word;
-    } else if (scoreWord(word) === max) {
-      if (word.length < highestScoreWord.length) {
-        highestScoreWord = word;
-      }
-    }
-  }
-  output = {
-    word: highestScoreWord,
-    score: max,
-  };
-  return output;
+  //   let max = 0;
+  //   let highestScoreWord = "";
+  //   for (const word of words) {
+  //     if (scoreWord(word) > max) {
+  //       max = scoreWord(word);
+  //       highestScoreWord = word;
+  //     } else if (scoreWord(word) === max) {
+  //       if (word.length < highestScoreWord.length) {
+  //         highestScoreWord = word;
+  //       }
+  //     }
+  //   }
+  //   const output = {
+  //     word: highestScoreWord,
+  //     score: max,
+  //   };
+  //   return output;
 };
