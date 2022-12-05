@@ -37,7 +37,7 @@ export const drawLetters = () => {
   }
   let hand = [];
   for (let i = 1; i < 11; i++) {
-    let randomIndex = Math.random() * letterPool.length;
+    let randomIndex = parseInt(Math.random() * letterPool.length);
     let drawnLetter = letterPool[randomIndex];
     hand.push(drawnLetter);
   }
@@ -52,8 +52,8 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     } else {
       return false;
     }
-    return true;
   }
+  return true;
 };
 
 export const scoreWord = (word) => {
@@ -75,6 +75,7 @@ export const scoreWord = (word) => {
 
   // calculate score
   let score = 0;
+  word = word.toUpperCase();
   for (let letter of word) {
     score += letterScore[letter];
   }
