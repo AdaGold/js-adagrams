@@ -79,14 +79,12 @@ export const scoreWord = (word) => {
   let points = 0;
   if (word.length === 0) {
     return points;
-  } else if (word.length > 7) {
+  } else if (word.length > 6) {
     points += 8;
   }
-
   for (let letter of word) {
     points += letterScore[letter];
   }
-
   return points;
 };
 
