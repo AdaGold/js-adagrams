@@ -85,24 +85,53 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-  // initialize an empty array
-  // iterate over words array
-  // calculate the score for each word and store the word and the score in a dict pushed to the array
-  // set max_score === 0
-  // set min_length === 10
-  // best word is none
-  // iterate over the new array:
-  // if the score > max score:
-  // max_score === score;
-  //  if word length === 10
-  // word = best word
-  // else if word length < min_length
-  // min_length = word length
-  // best_word is word
-  // return object {word: string of the best word,
-  //                score: score of that word}
-  // tie breaker - word with fewest letters
-  // unless one word has 10 letters
-  // multiple with same length and score, pick the 1st
+  let scoredWords = [];
+
+  for (const word of words) {
+    let wordHash = {};
+    wordHash.word = word;
+    wordHash.score = scoreWord(word);
+    scoredWords.push(wordHash);
+  }
+
+  console.log(scoredWords);
+
+  let maxScore = 0;
+  let minLength = 10;
+  let bestWord = "";
+  for (const wordObj of scoredWords) {
+    if (wordObj.score > maxScore) {
+      maxScore = wordObj.score;
+      console.log(wordObj.word.length);
+      if (wordObj.word.length === 10) {
+        bestWord = wordObj.word;
+      } else if (wordObj.word.length < minLength) {
+        minLength = wordObj.word.length;
+        bestWord = wordObj.word;
+      }
+    }
+  }
+  console.log(`maxScore is ${maxScore}`);
+  console.log(`minLength is ${minLength}`);
+  console.log(`bestWord is ${bestWord}`);
+
+  for (const wordObj of scoredWords) {
+    if (wordObj.word === bestWord) {
+      return wordObj;
+    }
+  }
+  console.log(`wordObj is ${wordObj}`);
 };
+
+// if the score > max score:
+// max_score === score;
+//  if word length === 10
+// word = best word
+// else if word length < min_length
+// min_length = word length
+// best_word is word
+// return object {word: string of the best word,
+//                score: score of that word}
+// tie breaker - word with fewest letters
+// unless one word has 10 letters
+// multiple with same length and score, pick the 1st
