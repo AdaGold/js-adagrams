@@ -36,9 +36,10 @@ export const drawLetters = () => {
     }
   }
   let hand = [];
-  for (let i = 1; i < 11; i++) {
+  for (let i = 0; i < 10; i++) {
     let randomIndex = parseInt(Math.random() * letterPool.length);
     let drawnLetter = letterPool[randomIndex];
+    letterPool.splice(randomIndex, 1);
     hand.push(drawnLetter);
   }
   return hand;
@@ -89,21 +90,21 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
-  //   let max = 0;
-  //   let highestScoreWord = "";
-  //   for (const word of words) {
-  //     if (scoreWord(word) > max) {
-  //       max = scoreWord(word);
-  //       highestScoreWord = word;
-  //     } else if (scoreWord(word) === max) {
-  //       if (word.length < highestScoreWord.length) {
-  //         highestScoreWord = word;
-  //       }
-  //     }
-  //   }
-  //   const output = {
-  //     word: highestScoreWord,
-  //     score: max,
-  //   };
-  //   return output;
+  let max = 0;
+  let highestScoreWord = "";
+  for (const word of words) {
+    if (scoreWord(word) > max) {
+      max = scoreWord(word);
+      highestScoreWord = word;
+    } else if (scoreWord(word) === max) {
+      if (word.length < highestScoreWord.length) {
+        highestScoreWord = word;
+      }
+    }
+  }
+  const output = {
+    word: highestScoreWord,
+    score: max,
+  };
+  return output;
 };
