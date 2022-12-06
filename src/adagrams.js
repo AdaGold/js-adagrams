@@ -29,16 +29,18 @@ const letterDist = {
 
 export const drawLetters = () => {
   let letterPool = [];
+  let hand = [];
+
   //create letter pool from letter distribution
   for (let letter in letterDist) {
     for (let i = 0; i < letterDist[letter] + 1; i++) {
       letterPool.push(letter);
     }
   }
-  let hand = [];
+
   for (let i = 0; i < 10; i++) {
-    let randomIndex = parseInt(Math.random() * letterPool.length);
-    let drawnLetter = letterPool[randomIndex];
+    const randomIndex = parseInt(Math.random() * letterPool.length);
+    const drawnLetter = letterPool[randomIndex];
     letterPool.splice(randomIndex, 1);
     hand.push(drawnLetter);
   }
@@ -98,6 +100,12 @@ export const highestScoreFrom = (words) => {
       highestScoreWord = word;
     } else if (scoreWord(word) === max) {
       if (word.length < highestScoreWord.length) {
+        highestScoreWord = word;
+      }
+      if (word.length === 10 && highestScoreWord.length != 10) {
+        highestScoreWord = word;
+      }
+      if (word.length != 10 && highestScoreWord.length === 10) {
         highestScoreWord = word;
       }
     }
