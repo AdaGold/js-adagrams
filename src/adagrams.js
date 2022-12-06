@@ -85,19 +85,18 @@ export const scoreWord = (word) => {
 };
 
 export const highestScoreFrom = (words) => {
+  // calculate score for each word and store it in a hash table, push it to an array
+  // calculate the highest score
   let scoredWords = [];
+  let maxScore = 0;
 
   for (const word of words) {
     let wordHash = {};
     wordHash.word = word;
     wordHash.score = scoreWord(word);
     scoredWords.push(wordHash);
-  }
-  // calculate highest score
-  let maxScore = 0;
-  for (const wordObj of scoredWords) {
-    if (wordObj.score > maxScore) {
-      maxScore = wordObj.score;
+    if (wordHash.score > maxScore) {
+      maxScore = wordHash.score;
     }
   }
 
@@ -118,6 +117,7 @@ export const highestScoreFrom = (words) => {
     }
   }
 
+  // iterate over array of word objects and return the best one
   for (const wordObj of scoredWords) {
     if (wordObj.word === bestWord) {
       return wordObj;
