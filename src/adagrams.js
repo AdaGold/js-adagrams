@@ -1,29 +1,29 @@
 const letterDist = {
   A: 9,
-  N: 6,
   B: 2,
-  O: 8,
   C: 2,
-  P: 2,
   D: 4,
-  Q: 1,
   E: 12,
-  R: 6,
   F: 2,
-  S: 4,
   G: 3,
-  T: 6,
   H: 2,
-  U: 4,
   I: 9,
-  V: 2,
   J: 1,
-  W: 2,
   K: 1,
-  X: 1,
   L: 4,
-  Y: 2,
   M: 2,
+  N: 6,
+  O: 8,
+  P: 2,
+  Q: 1,
+  R: 6,
+  S: 4,
+  T: 6,
+  U: 4,
+  V: 2,
+  W: 2,
+  X: 1,
+  Y: 2,
   Z: 1,
 };
 
@@ -31,19 +31,21 @@ export const drawLetters = () => {
   let letterPool = [];
   let hand = [];
 
-  //create letter pool from letter distribution
+  // create letter pool from letter distribution
   for (let letter in letterDist) {
-    for (let i = 0; i < letterDist[letter] + 1; i++) {
+    for (let i = 0; i < letterDist[letter]; i++) {
       letterPool.push(letter);
     }
   }
-
-  for (let i = 0; i < 10; i++) {
-    const randomIndex = parseInt(Math.random() * letterPool.length);
-    const drawnLetter = letterPool[randomIndex];
-    letterPool.splice(randomIndex, 1);
+  console.log(letterPool);
+  // for (let i = 0; i < 10; i++) {
+  while (hand.length < 10) {
+    let randomIndex = parseInt(Math.random() * letterPool.length);
+    let drawnLetter = letterPool[randomIndex];
     hand.push(drawnLetter);
+    letterPool.splice(randomIndex, 1);
   }
+
   return hand;
 };
 
