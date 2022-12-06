@@ -37,7 +37,7 @@ export const drawLetters = () => {
       letterPool.push(letter);
     }
   }
-  console.log(letterPool);
+
   // for (let i = 0; i < 10; i++) {
   while (hand.length < 10) {
     let randomIndex = parseInt(Math.random() * letterPool.length);
