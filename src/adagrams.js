@@ -112,6 +112,34 @@ export const scoreWord = (word) => {
   return score;
 };
 
+const createdScoreDict = (words) => {
+  let scoreDict = {};
+  words.forEach((word) => {
+    let score = scoreWord(word);
+    if (scoreDict[score] === undefined) {
+      scoreDict[score] = [];
+    }
+    scoreDict[score].push(word);
+  });
+  return scoreDict; 
+}
+
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  // wave 4
+  let scoreDict = createdScoreDict(words);
+  let maxScore = object.keys(scoreDict).reduce(function(a,b){
+    return scoreDict[a] > scoreDict[b] ? a : b ;
+  })
+  let wordTie = scoreDict[max];
+  let compareTies = wordTie.sort((a, b) => a.lenght -b.lenght); 
+  for (let word of compareTies) {
+    if (word.lenght === 10) {
+      return { word: word, score: parseInt(maxScore)};
+
+    }
+  }
+  let word = scoreDict[maxScore][0];
+  let result = { word: word, score: parseInt(max) };
+  return result;
 };
+
