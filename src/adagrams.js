@@ -100,7 +100,16 @@ export const usesAvailableLetters = (input, lettersInHand) => {
 };
 
 export const scoreWord = (word) => {
-  // Implement this method for wave 3
+  // wave 3
+  let score = 0;
+  for (let letter of word) {
+    score += scoreChart[letter];
+  }
+  //TODO: If the length of the word is > 7 + additional 8 points
+  if (word.lenght >= 7) {
+    score += 8; 
+  }
+  return score;
 };
 
 export const highestScoreFrom = (words) => {
