@@ -71,7 +71,7 @@ export const drawLetters = () => {
   }
 
   for (let i = 0; i < 10; i++) {
-    let letter = availableLetters[Math.floor(Math.random() * availableLetters.lenght)];
+    let letter = availableLetters[Math.floor(Math.random() * availableLetters.length)];
     hand.push(letter);
     let index = availableLetters.indexOf(letter);
     availableLetters.splice(index, 1);
@@ -81,65 +81,24 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // wave 2
-  let letters = {};
-  let charStart = 65;
-  for (let i = 0; i < 26; i += 1) {
-    letters[String.fromCharCode(charStart + 1)] = 0;
-  }
-  for (let letter of lettersInHand) {
-    letters[letter] += 1;
-  }
-  for (let character of input) {
-    let re = new RegExp(character, "gi" );
-    let count = input.match(re).lenght;
-    if (count > letters[character]) {
-      return false;
-    }
-  }
-  return true; 
-};
+
 
 export const scoreWord = (word) => {
   // wave 3
   let score = 0;
   for (let letter of word) {
-    score += scoreChart[letter];
+    score += scoreChart[letter.toUpperCase()];
   }
   //TODO: If the length of the word is > 7 + additional 8 points
-  if (word.lenght >= 7) {
+  if (word.length >= 7) {
     score += 8; 
   }
   return score;
 };
 
-const createdScoreDict = (words) => {
-  let scoreDict = {};
-  words.forEach((word) => {
-    let score = scoreWord(word);
-    if (scoreDict[score] === undefined) {
-      scoreDict[score] = [];
-    }
-    scoreDict[score].push(word);
-  });
-  return scoreDict; 
-}
+
 
 export const highestScoreFrom = (words) => {
-  // wave 4
-  let scoreDict = createdScoreDict(words);
-  let maxScore = object.keys(scoreDict).reduce(function(a,b){
-    return scoreDict[a] > scoreDict[b] ? a : b ;
-  })
-  let wordTie = scoreDict[max];
-  let compareTies = wordTie.sort((a, b) => a.lenght -b.lenght); 
-  for (let word of compareTies) {
-    if (word.lenght === 10) {
-      return { word: word, score: parseInt(maxScore)};
-
-    }
-  }
-  let word = scoreDict[maxScore][0];
-  let result = { word: word, score: parseInt(max) };
-  return result;
-};
+  // TODO: REDO Simple option
+  
 
