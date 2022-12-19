@@ -81,17 +81,16 @@ export const drawLetters = () => {
 
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // wave 2
-  for (let a = 0; a < input.length; a++) {
-    if(!input.includes(lettersInHand[a])) {
+  // wave 2 
+  for (const letter of input) {
+    if(lettersInHand.includes(letter)) {
+      lettersInHand.splice(letter, 1);
+    } else {
       return false;
-    };
-  
-};
+    }
+  }
   return true; 
 };
-// option2:
-// if(!lettersInHand.includes(input[a]))
 
 export const scoreWord = (word) => {
   // wave 3
@@ -106,45 +105,37 @@ export const scoreWord = (word) => {
   return score;
 };
 
-
-
 export const highestScoreFrom = (words) => {
+  //wave 4
+  let wordsAndScores = {};
 
-  let score = 0;
-  const scoreArr = [];
-  for(let i = 0; i <words.length; i++ ) {
-    for(let j = 0; j < words[i].length; j++) {
-      score += scoreChart[words[i][j]]
-    }
-    scoreArr.push({word: score, // used word to store the score here for better access
-                   wordIndex: i, //i used wordIndex here to access the right word in the object returned
-                  letterCount: words[i].length});
-    score = 0;
-  }; 
+  //loop
+  for (const word of words) {
+    const score = scoreWord(word);
+    wordsAndScores[word] = score;
+  };
 
-    // sort the array in order of ascending scores
-  scoreArr.sort((a, b) => a.word - b.word);
-   
-    
-    let first = scoreArr.pop();
-    let second = scoreArr.pop();
- 
-    if(first.word === second.word) {
-      if(first.letterCount < second.letterCount) {
-          return {[words[first.wordIndex]]: first.word}
-      } else {
-          return {word: words[wordIndex],
-                  score: first.word};
+  const winningWordAndScore = {
+    word: Object.keys(wordsAndScores)[0],
+    score: Object.values(wordsAndScores)[0]
+  };
+
+  for (const[key, value] of Object.entries(wordsAndScores)) {
+    //create conditional
+    if (value > winningWordAndScore['score']) {
+      winningWordAndScore['word'] = key;
+      winningWordAndScore ['score'] = value;
+    };
+
+    if (value === winningWordAndScore['score'] && winningWordAndScore['word'].length < 10) {
+      if(key.length === 10) {
+        winningWordAndScore['word'] = key;
+        winningWordAndScore['score'] = value;
+      } else if (key.length < winningWordAndScore['word'].length) {
+        winningWordAndScore['word'] = key;
+        winningWordAndScore['score'] = value;
       }
-  } else if(first.letterCount === 10) {
-      return {word: words[first.wordIndex],
-                  score: first.word};
-  } else if(second.letterCount === 10) {
-      return {word: words[second.wordIndex],
-                  score: second.word};
-  } else {
-      return {word: words[first.wordIndex],
-                  score: first.word};
+    }
   }
-
+  return winningWordAndScore; 
 };
