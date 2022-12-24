@@ -73,7 +73,7 @@ export const drawLetters = () => {
   for (let i = 0; i < 10; i++) {
     let letter = availableLetters[Math.floor(Math.random() * availableLetters.length)];
     hand.push(letter);
-    let index = availableLetters.indexOf(letter);
+    let index = availableLetters.indexOf(letter); 
     availableLetters.splice(index, 1);
   }
   return hand; 
@@ -82,15 +82,35 @@ export const drawLetters = () => {
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // wave 2 
-  for (const letter of input) {
+  // Has two parameters:
+//   `input`, the first parameter, describes some input word, and is a string
+//   - `lettersInHand`, the second parameter, describes an array of drawn letters in a hand. You can expect this to be an array of ten strings, with each string representing a letter
+// - Returns either `true` or `false`
+// - Returns `true` if every letter in the `input` word is available (in the right quantities) in the `lettersInHand`
+// - Returns `false` if not; if there is a letter in `input` that is not present in the `lettersInHand` or has too much of compared to the `lettersInHand`
+
+lettersInHand = [...lettersInHand];
+for (const letter of input) {
     if(lettersInHand.includes(letter)) {
-      lettersInHand.splice(letter, 1);
+      let indexLettersInHand = lettersInHand.indexOf(letter);
+      lettersInHand.splice(indexLettersInHand, 1);
     } else {
       return false;
     }
   }
   return true; 
+// const countLettersInHand = (lettersInHand) =>{
+//   //go through loop and account for each word in letter
+//   for(let i = 0 ; i < lettersInHand.length; ++i) {
+//       let wordCounter = 0;
+//       if 
+//   };
+//   //use a counter to keep track of letter frequency 
+// };
 };
+
+
+
 
 export const scoreWord = (word) => {
   // wave 3

@@ -72,7 +72,7 @@ describe("Adagrams", () => {
 
   describe("usesAvailableLetters", () => {
     it("returns true if the submitted letters are valid against the drawn letters", () => {
-      const drawn = ["D", "O", "G", "X", "X", "X", "X", "X", "X", "X"];
+      const drawn = ["O", "D","G", "X", "X", "X", "X", "X", "X", "X"];
       const word = "DOG";
 
       const isValid = usesAvailableLetters(word, drawn);
