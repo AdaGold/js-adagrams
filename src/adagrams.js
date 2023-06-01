@@ -41,16 +41,25 @@ export const drawLetters = () => {
   }
 
   return hand;
-
-
-    
-  // Implement this method for wave 1
 };
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-};
 
+    const letterBankLower = lettersInHand.map((letter) => letter.toLowerCase());
+    const inputLower = input.toLowerCase();
+  
+    for (const letter of inputLower) {
+      const index = letterBankLower.indexOf(letter);
+      if (index !== -1) {
+        letterBankLower.splice(index, 1);
+      } else {
+        return false;
+      }
+    }
+    return true;
+  };
+
+  
 export const scoreWord = (word) => {
   // Implement this method for wave 3
 };
