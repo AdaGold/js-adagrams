@@ -56,8 +56,22 @@ export function drawLetters() {
   }
 
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
-};
+  // Make a copy of lettersInHand to avoid modifying original array
+  let hand = lettersInHand.slice(); 
+    // Loop iterates over every letter in input
+    for (let i = 0; i < input.length; i++) {
+  // See if current letter is in hand using indexOf() method, which returns the index of the first occurrence of the element in the array. If the element is not found, it returns -1.
+  let index = hand.indexOf(input[i]); 
+    if (index === -1) {
+      // Letter not in hand
+      return false; 
+    } else {
+      // Remove letter from hand
+      hand.splice(index, 1);
+  }
+  }
+  return true;
+  };
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
