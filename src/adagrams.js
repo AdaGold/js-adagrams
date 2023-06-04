@@ -119,7 +119,7 @@ export const usesAvailableLetters = (input, lettersInHand) => {
   
 
 
-  /* The original Pseudocode for Wave 4
+  /* The original Pseudocode for Wave 4--The Python version
   PSEUDOCODE for WAVE 4:
 
 FUNCTION get_highest_word_score(word_list):
