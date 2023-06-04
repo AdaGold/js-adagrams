@@ -119,9 +119,9 @@ describe("Adagrams", () => {
       });
     });
 
-    it("returns a score of 0 if given an empty input", () => {
+    it('returns a score of 0 if given an empty input', () => {
        // Arrange
-      const word = "";
+      const word = '';
 
       // Act
       const result = scoreWord(word);
@@ -131,7 +131,7 @@ describe("Adagrams", () => {
     });
     
 
-    it("adds an extra 8 points if word is 7 or more characters long", () => {
+    it('adds an extra 8 points if word is 7 or more characters long', () => {
       expectScores({
         XXXXXXX: 64,
         XXXXXXXX: 72,
@@ -141,36 +141,49 @@ describe("Adagrams", () => {
     });
   });
 
-  describe.("highestScoreFrom", () => {
-    it("returns a hash that contains the word and score of best word in an array", () => {
-      const words = ["X", "XX", "XXX", "XXXX"];
-      const correct = { word: "XXXX", score: scoreWord("XXXX") };
-
+  describe('highestScoreFrom', () => {
+    it('returns a hash that contains the word and score of the best word in an array', () => {
+      const words = ['X', 'XX', 'XXX', 'XXXX'];
+      const correct = { word: 'XXXX', score: scoreWord('XXXX') };
+  
       expect(highestScoreFrom(words)).toEqual(correct);
     });
-
-    it("accurately finds best scoring word even if not sorted", () => {
-      const words = ["XXX", "XXXX", "X", "XX"];
-      const correct = { word: "XXXX", score: scoreWord("XXXX") };
-
-      throw "Complete test by adding an assertion";
+  
+    it('accurately finds the best scoring word even if not sorted', () => {
+      const words = ['XXX', 'XXXX', 'X', 'XX'];
+      const correct = { word: 'XXXX', score: scoreWord('XXXX') };
+  
+      expect(highestScoreFrom(words)).toEqual(correct);
     });
-
-    describe("in case of tied score", () => {
+  
+    it('returns null for an empty array', () => {
+      const words = [];
+  
+      expect(highestScoreFrom(words)).toBeNull();
+    });
+  
+    it('returns the only word in the array if it is the highest-scoring word', () => {
+      const words = ['APPLE'];
+      const correct = { word: 'APPLE', score: scoreWord('APPLE') };
+  
+      expect(highestScoreFrom(words)).toEqual(correct);
+    });
+  });
+  describe('in case of tied score', () => {
       const expectTie = (words) => {
-        const scores = words.map((word) => scoreWord(word));
-        const highScore = scores.reduce((h, s) => (h < s ? s : h), 0);
-        const tiedWords = scores.filter((s) => s == highScore);
+      const scores = words.map((word) => scoreWord(word));
+      const highScore = scores.reduce((h, s) => (h < s ? s : h), 0);
+      const tiedWords = scores.filter((s) => s == highScore);
 
         // Expect at least two tied words
-        expect(tiedWords.length).toBeGreaterThan(1);
+      expect(tiedWords.length).toBeGreaterThan(1);
       };
 
-      it("selects the word with 10 letters", () => {
-        const words = ["AAAAAAAAAA", "BBBBBB"];
+      it('selects the word with 10 letters', () => {
+        const words = ['AAAAAAAAAA', 'BBBBBB'];
         const correct = {
-          word: "AAAAAAAAAA",
-          score: scoreWord("AAAAAAAAAA"),
+        word: 'AAAAAAAAAA',
+        score: scoreWord('AAAAAAAAAA'),
         };
         expectTie(words);
 
@@ -178,24 +191,24 @@ describe("Adagrams", () => {
         expect(highestScoreFrom(words.reverse())).toEqual(correct);
       });
 
-      it("selects the word with fewer letters when neither are 10 letters", () => {
-        const words = ["MMMM", "WWW"];
-        const correct = { word: "WWW", score: scoreWord("WWW") };
+      it('selects the word with fewer letters when neither are 10 letters', () => {
+        const words = ['MMMM', 'WWW'];
+        const correct = { word: 'WWW', score: scoreWord('WWW') };
         expectTie(words);
 
         expect(highestScoreFrom(words)).toEqual(correct);
         expect(highestScoreFrom(words.reverse())).toEqual(correct);
       });
 
-      it("selects the first word when both have same length", () => {
-        const words = ["AAAAAAAAAA", "EEEEEEEEEE"];
+      it('selects the first word when both have same length', () => {
+        const words = ['AAAAAAAAAA', 'EEEEEEEEEE'];
         const first = {
-          word: "AAAAAAAAAA",
-          score: scoreWord("AAAAAAAAAA"),
+          word: 'AAAAAAAAAA',
+          score: scoreWord('AAAAAAAAAA'),
         };
         const second = {
-          word: "EEEEEEEEEE",
-          score: scoreWord("EEEEEEEEEE"),
+          word: 'EEEEEEEEEE',
+          score: scoreWord('EEEEEEEEEE'),
         };
         expectTie(words);
 
@@ -204,4 +217,5 @@ describe("Adagrams", () => {
       });
     });
   });
-});
+
+

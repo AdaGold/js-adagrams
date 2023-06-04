@@ -90,8 +90,71 @@ export const usesAvailableLetters = (input, lettersInHand) => {
     return score;
   };
   
+
+  export const highestScoreFrom = (words) => {
+    if (words.length === 0) {
+      return null;
+    }
+  
+    let highestScore = 0;
+    let winningWord = null;
+  
+    for (const word of words) {
+      const wordScore = scoreWord(word);
+  
+      if (wordScore > highestScore) {
+        highestScore = wordScore;
+        winningWord = word;
+      } else if (wordScore === highestScore) {
+        if (word.length === 10 && winningWord.length !== 10) {
+          winningWord = word;
+        } else if (word.length < winningWord.length && winningWord.length !== 10) {
+          winningWord = word;
+        }
+      }
+    }
+  
+    return { word: winningWord, score: highestScore };
+  };
   
 
-export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
-};
+
+  /* The original Pseudocode for Wave 4
+  PSEUDOCODE for WAVE 4:
+
+FUNCTION get_highest_word_score(word_list):
+highest_score = 0
+winning_word = ""
+FOR word IN word_list:
+word_score = score_word(word)
+IF word_score > highest_score:
+highest_score = word_score
+winning_word = word
+ELSE IF word_score == highest_score:
+IF LENGTH OF word == 10 AND LENGTH OF winning_word != 10:
+winning_word = word
+ELSE IF LENGTH OF word < LENGTH OF winning_word AND LENGTH OF winning_word != 10:
+winning_word = word
+RETURN A TUPLE CONTAINING winning_word AND highest_score
+
+Roughly translated to JS:
+  export const highestScoreFrom = (words) => {
+    if words is empty:
+        return null
+    
+    highestScore = 0
+    winningWord = null
+
+    for each word in words:
+        wordScore = scoreWord(word)
+
+        if wordScore > highestScore or (wordScore === highestScore and winningWord is null):
+            highestScore = wordScore
+            winningWord = word
+        else if wordScore === highestScore:
+            if word.length === 10 and winningWord.length !== 10:
+                winningWord = word
+            else if word.length < winningWord.length and winningWord.length !== 10:
+                winningWord = word
+    
+    return { word: winningWord, score: highestScore }*/
