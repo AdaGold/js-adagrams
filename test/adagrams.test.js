@@ -120,9 +120,14 @@ describe("Adagrams", () => {
     });
 
     it("returns a score of 0 if given an empty input", () => {
-      throw "Complete test";
+      const words = [];
+      const correct = { word: "", score: 0 };
+    
+      const result = highestScoreFrom(words);
+    
+      expect(result).toEqual(correct);
     });
-
+    
     it("adds an extra 8 points if word is 7 or more characters long", () => {
       expectScores({
         XXXXXXX: 64,
@@ -144,8 +149,9 @@ describe("Adagrams", () => {
     it("accurately finds best scoring word even if not sorted", () => {
       const words = ["XXX", "XXXX", "X", "XX"];
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
+      const result = highestScoreFrom(words);
 
-      throw "Complete test by adding an assertion";
+      expect(result).toEqual(correct);
     });
 
     describe("in case of tied score", () => {
