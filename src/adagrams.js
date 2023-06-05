@@ -62,7 +62,7 @@ export const drawLetters = () => {
   let letterPoolCopy = { ...LETTER_POOL };
   let counter = 0;
 
-  // Using Math.floor due to decimals 
+  // Using Math.floor to get an integer instead of float for the Math.random. Using this method to index the letters. 
   while (counter < 10) {
     let letters = Object.keys(letterPoolCopy);
     let randomIndex = Math.floor(Math.random() * letters.length);
@@ -80,6 +80,7 @@ export const drawLetters = () => {
   return drawnLetters;
 };
 
+// .map is used to create new array from calling a function for every element. Does not change the original and does not excute for empty elements. 
 export const usesAvailableLetters = (word, letterBank) => {
   let letterBankCopy = letterBank.map((letter) => letter.toUpperCase());
 
