@@ -58,9 +58,11 @@ const SCORE_CHART = {
 
 export const drawLetters = () => {
   let drawnLetters = [];
+  // Create a copy with spread operator
   let letterPoolCopy = { ...LETTER_POOL };
   let counter = 0;
 
+  // Using Math.floor due to decimals 
   while (counter < 10) {
     let letters = Object.keys(letterPoolCopy);
     let randomIndex = Math.floor(Math.random() * letters.length);
@@ -100,10 +102,6 @@ export const usesAvailableLetters = (word, letterBank) => {
 
 export const scoreWord = (word) => {
   let totalScore = 0;
-
-  if (word.length === 0) {
-    return totalScore = 0;
-  }
 
   for (let letter of word.toUpperCase()) {
     totalScore += SCORE_CHART[letter];
