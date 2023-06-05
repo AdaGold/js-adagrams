@@ -1,4 +1,4 @@
-let LETTER_POOL = {
+const LETTER_POOL = {
   'A': 9,
   'B': 2,
   'C': 2,
@@ -27,7 +27,7 @@ let LETTER_POOL = {
   'Z': 1
 };
 
-let SCORE_CHART = {
+const SCORE_CHART = {
   'A': 1,
   'B': 3,
   'C': 3,
@@ -100,6 +100,10 @@ export const usesAvailableLetters = (word, letterBank) => {
 
 export const scoreWord = (word) => {
   let totalScore = 0;
+
+  if (word.length === 0) {
+    return totalScore = 0;
+  }
 
   for (let letter of word.toUpperCase()) {
     totalScore += SCORE_CHART[letter];
