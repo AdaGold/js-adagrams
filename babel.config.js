@@ -12,6 +12,7 @@ const presets = [
       corejs: "3.8.0",
     },
   ],
+  "@babel/preset-react"
 ];
 
 const plugins = [

@@ -60,7 +60,7 @@ This is shorthand for the command `open coverage/lcov-report/index.html` and wil
 
 ### Adagrams Demo Game
 
-In addition to the provided unit tests, we provided a demo game application that uses Adagrams code that you will implement. You can play the game as you implement each wave of the project and verify that game functionality begins to work, in addition to passing unit tests. Don't forget; making the demo game work is optional-- **passing the unit tests is required.**
+In addition to the provided unit tests, we provided a demo game application that uses Adagrams code that you will implement. You can play the game as you implement each wave of the project and verify that game functionality begins to work, in addition to passing unit tests. Don't forget; making the demo game work is optional—**passing the unit tests is required.**
 
 <details>
 
@@ -74,11 +74,11 @@ You can start the demo game application with the following command:
 $ yarn run demo-game
 ```
 
-This will start the Adagrams prompt, and you can start a new game by typing `start` (or `start <num>` for a game with multiple players).
+This will start the Adagrams menu. You can start a new game, learn how to play, or quit.
 
-Once the game has started each player is prompted to play anagrams from the displayed letter bank until their turn completes. At the end of each round the player who played the best word (according to the logic you will implement in wave 4) is awarded points based on that word. Once all rounds are completed the game announced who won with the point total for that player.
+Once the game has started, each player is prompted to play anagrams from the displayed letter bank until their turn completes. At the end of each round the player who played the best word (according to the logic you will implement in wave 4) is awarded points based on that word. Once all rounds are completed the game announced who won with the point total for that player.
 
-The game is fairly rudimentary and has a few bugs remaining, such as needing to type 'exit' to complete your turn. If you've completed all of the waves for this project and wish to continue working on terminal JavaScript code, feel free to ask your instructors for suggestions on bug fixes or improvements to make for the game code.
+The game is fairly rudimentary and has a few bugs remaining. If you've completed all of the waves for this project and wish to continue working on terminal JavaScript code, feel free to ask your instructors for suggestions on bug fixes or improvements to make for the game code. [The game's code is documented](./src/demo-react#react-demo-game) in README files in its various folders.
 
 #### Conclusion
 

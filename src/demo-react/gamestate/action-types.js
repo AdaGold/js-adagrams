@@ -1,0 +1,12 @@
+export const GUESS = 'guess';
+export const ADD_PLAYER = 'add-player';
+export const TICK = 'tick';
+export const ADVANCE_TURN = 'advance-turn';
+export const ADVANCE_ROUND = 'advance-round';
+export const SET_DESIRED_PLAYERS = 'set-desired-players';
+export const SET_NUMBER_ROUNDS = 'set-number-rounds';
+export const SET_TURN_SECONDS = 'set-turn-seconds';
+export const SET_ERROR = 'set-error';
+export const SWITCH_SCREEN = 'switch-screen';
+export const RESET = 'reset';
+export const REMATCH = 'rematch';
