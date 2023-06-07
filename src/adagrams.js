@@ -111,29 +111,29 @@ export const scoreWord = (word) => {
 
 // console.log(scoreWord("word"))
 
-// export const highestScoreFrom = (words) => {
-//   let winningWord = '';
+export const highestScoreFrom = (words) => {
+  let winningWord = '';
    
-//   let highestScore = 0; 
-//   for (let word of words){ 
-//       let wordScore = scoreWord(word);
+  let highestScore = 0; 
+  for (let word of words){ 
+      let wordScore = scoreWord(word);
 
-//       if (wordScore > highestScore){ 
-//         highestScore = wordScore;
-//         winningWord = word;
-//       } else if (wordScore === highestScore);{
-//           if (winningWord.length === 10)
-//               continue;
-//           else if (word.length < winningWord.length && winningWord.length != 10);{
-//               winningWord = word;
-//           }
-//           // else if (word.length == 10 && winningWord.length != 10)
-//           //     winning_word = word;
-//           //   }
-          
-      
-      
-//           //   };
-    
-//   return [winning_word, highest_score];
-// };
+      if (wordScore > highestScore){
+        highestScore = wordScore;
+        winningWord = word;
+      }
+      else if (wordScore === highestScore) {
+        if (winningWord.length === 10){
+          continue;
+        }
+        else if (word.length < winningWord.length && winningWord.length != 10){
+          winningWord = word;
+        }
+        else if (word.length === 10 && winningWord.length != 10){
+          winningWord = word
+        }
+      }
+    }
+
+  return {"score": highestScore, "word": winningWord}
+};
