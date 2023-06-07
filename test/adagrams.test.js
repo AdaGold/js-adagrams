@@ -148,7 +148,6 @@ describe("Adagrams", () => {
       const correct = { word: "XXXX", score: scoreWord("XXXX") };
 
       expect(highestScoreFrom(words)).toEqual(correct);
-      expect(highestScoreFrom(correct[score])).toequal(32)
     });
 
     describe("in case of tied score", () => {

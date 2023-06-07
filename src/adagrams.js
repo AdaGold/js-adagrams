@@ -31,7 +31,7 @@ for (let letter in LETTER_POOL) {
   // console.log(`letter ${LETTER_POOL[letter]}`)
  letterList += letter.repeat(LETTER_POOL[letter])
 }
-console.log(letterList)
+// console.log(letterList)
 
   
 let randomIndex = (letterList) => {
@@ -64,26 +64,25 @@ export const drawLetters = () => {
 };
 
 
-console.log(drawLetters())
+// console.log(drawLetters())
 
 export const usesAvailableLetters = (input, lettersInHand) => {
   // Implement this method for wave 2
        
-    let clone =  {...lettersInHand}
+  let clone = [...lettersInHand]
 
-    for (let character  of input.toUpperCase()){
-    if (character in clone){
-      clone.pop(character);
-    }
-  
-    else {
-      return false;
+  for (let character of input.toUpperCase()){
+    if (clone.includes(character)===true){
+      let cloneIndex = clone.indexOf(character)
+      clone.splice(cloneIndex, 1)
+    } else {
+      return false
     }
   }
-  return true;
 
-    
+  return true
 };
+
 
 export const scoreWord = (word) => {
     let wordScore = 0;
@@ -94,13 +93,11 @@ export const scoreWord = (word) => {
     }
     
     if (word.length < 1){
-      // wordScore = 0
       return wordScore;
     }
 
     for (let letter of word.toUpperCase()){
-        wordScore += scores[letter]
-        console.log(`score:${scores[letter]}`)}
+        wordScore += scores[letter]}
     if (word.length >= 7){
         wordScore += 8}
 
