@@ -1,4 +1,4 @@
-FROM node:20.11.0-alpine3.18
+FROM node:16.10.0-alpine3.14
 
 LABEL maintainer="chris.adadev.org"
 
