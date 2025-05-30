@@ -21,7 +21,7 @@ export const drawLetters = () => {
 
   const selTen = [];
   while (selTen.length < HAND_SIZE) {
-    const randomIndex = Math.floor(math.random() * allLetters.length);
+    const randomIndex = Math.floor(Math.random() * allLetters.length);
     const selectedLetter = allLetters.splice(randomIndex, 1)[0];
     selTen.push(selectedLetter);
 
@@ -34,7 +34,7 @@ export const drawLetters = () => {
 
 // wave 02
 export const usesAvailableLetters = (input, lettersInHand) => {
-  const lettersInHand = {};
+  const letterCount = {};
   for (const letter of lettersInHand) {
     letterCount[letter] = (letterCount[letter], 0) +1;
   }
@@ -91,13 +91,13 @@ export const highestScoreFrom = (words) => {
   }
 
   const topWords = scoreWords.filter(entry => entry.score = maxScore);
-  let winner = topwords[0];
+  let winner = topWords[0];
 
   for (const entry of topWords) {
-    if (word.length === 10 && winner.word.length !== 10){
+    if (entry.length === 10 && winner.word.length !== 10){
       winner = entry;
     } else if (
-      word.length < winner.word.length &&
+      entry.length < winner.word.length &&
       winner.word.length !== 10
     ) {
       winner = entry;
