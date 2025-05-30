@@ -36,15 +36,16 @@ export const drawLetters = () => {
 export const usesAvailableLetters = (input, lettersInHand) => {
   const letterCount = {};
   for (const letter of lettersInHand) {
-    letterCount[letter] = (letterCount[letter], 0) +1;
+    letterCount[letter] = (letterCount[letter] || 0) +1;
   }
 
   for (const char of input.toUpperCase()) {
     if (!letterCount[char] || letterCount === 0) {
       return false;
     }
-    return true;
+    letterCount[char] -= 1;
   }
+  return true;
 };
 
 
@@ -90,14 +91,14 @@ export const highestScoreFrom = (words) => {
     }
   }
 
-  const topWords = scoreWords.filter(entry => entry.score = maxScore);
+  const topWords = scoreWords.filter(entry => entry.score === maxScore);
   let winner = topWords[0];
 
   for (const entry of topWords) {
-    if (entry.length === 10 && winner.word.length !== 10){
+    if (entry.word.length === 10 && winner.word.length !== 10){
       winner = entry;
     } else if (
-      entry.length < winner.word.length &&
+      entry.word.length < winner.word.length &&
       winner.word.length !== 10
     ) {
       winner = entry;
