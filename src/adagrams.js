@@ -32,9 +32,22 @@ export const drawLetters = () => {
 };
 
 
+// wave 02
 export const usesAvailableLetters = (input, lettersInHand) => {
-  // Implement this method for wave 2
+  const lettersInHand = {};
+  for (const letter of lettersInHand) {
+    letterCount[letter] = (letterCount[letter], 0) +1;
+  }
+
+  for (const char of input.toUpperCase()) {
+    if (!letterCount[char] || letterCount === 0) {
+      return false;
+    }
+    return true;
+  }
 };
+
+
 
 export const scoreWord = (word) => {
   // Implement this method for wave 3
