@@ -73,7 +73,36 @@ export const scoreWord = (word) => {
   return score;
 };
 
-
+// wave 04
 export const highestScoreFrom = (words) => {
-  // Implement this method for wave 4
+  
+  const scoreWords = words.map(word => {
+    return {
+      word: word,
+      score: scoreWord(word)
+    };
+  });
+  
+  let maxScore = 0;
+  for (const entry of scoreWords) {
+    if (entry.score > maxScore) {
+      maxScore = entry.score;
+    }
+  }
+
+  const topWords = scoreWords.filter(entry => entry.score = maxScore);
+  let winner = topwords[0];
+
+  for (const entry of topWords) {
+    if (word.length === 10 && winner.word.length !== 10){
+      winner = entry;
+    } else if (
+      word.length < winner.word.length &&
+      winner.word.length !== 10
+    ) {
+      winner = entry;
+    }
+  }
+  return winner;
+
 };
