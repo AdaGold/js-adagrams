@@ -1,5 +1,5 @@
 import Vorpal from 'vorpal';
-import MESSAGES from './messages';
+import MESSAGES from './messages.js';
 
 const menu = new Vorpal();
 
