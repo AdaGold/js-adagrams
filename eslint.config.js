@@ -11,12 +11,12 @@ export default [
     "test/demo/*"
   ] },
   {
-    files: ['**/*.spec.js'],
+    files: ['**/*.test.js'],
     plugins: { jest },
     languageOptions: {
       globals: {
         ...globals.jest,
-        ...jest.environments.globals.globals
+        ...jest.environments.globals.globals,
       }
     },
     rules: {
@@ -33,7 +33,6 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...globals.jest
       },
       ecmaVersion: "latest",
       sourceType: "module",   
