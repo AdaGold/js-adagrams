@@ -3,7 +3,7 @@ import {
   usesAvailableLetters,
   scoreWord,
   highestScoreFrom,
-} from "adagrams";
+} from "../adagrams";
 
 const Real = {
   drawLetters,
