@@ -1,4 +1,4 @@
-import Adagrams from 'demo/adagrams';
+import Adagrams from './adagrams.js';
 
 class Model {
   constructor(config) {
