@@ -1,5 +1,5 @@
-import Model from '../../src/demo/model';
-import Adagrams from '../../src/demo/adagrams';
+import Model from '../../src/demo/model.js';
+import Adagrams from '../../src/demo/adagrams.js';
 
 describe.skip('Game Model', () => {
   const config = {
